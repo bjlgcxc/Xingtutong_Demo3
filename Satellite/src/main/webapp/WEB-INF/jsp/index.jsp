@@ -54,7 +54,7 @@
 	$(document).ready(function() {
 		//webSocke
 		var hostport = document.location.host;
-		var socketurl = 'ws://' + hostport + '/Demo3/webSocket';
+		var socketurl = 'ws://' + hostport + '/Satellite/webSocket';
 		var ws = new WebSocket(socketurl);
 		/* ws.onopen = function() { 
 			alert('webSocket connet');
