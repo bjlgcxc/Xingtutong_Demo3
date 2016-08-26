@@ -3,7 +3,7 @@
   type="WEB"
   name="Satellite"
   id="myeclipse.1469416149559"
-  context-root="/Demo3"
+  context-root="/Satellite"
   j2ee-spec="1.4"
   archive="Satellite.war">
   <attributes>
