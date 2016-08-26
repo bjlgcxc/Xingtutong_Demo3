@@ -73,7 +73,6 @@
 		update_table2();
 		update_table3(table2_body, 6);
 		update_viewer();
-
 	});
 
 	window.onresize = function() {
