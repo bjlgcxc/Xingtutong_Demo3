@@ -1,0 +1,62 @@
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+body,p {
+        margin: 0;
+}
+
+.parent {
+        position: relative;
+        height: 300px;
+}
+
+.left,.center,.right {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        padding:5px;
+}
+
+.left {
+        left: 0;
+        width: 33.3%;
+        
+}
+
+.center {
+        left: 33.3%;
+        right: 33.3%;
+}
+
+.right {
+        width: 33.3%;
+        right: 0;
+}
+.panelBody{
+	overflow:auto;
+}
+#skyPic{
+			width: 390px;
+			height: 390px;
+			border:1px solid #ccc;
+		}
+::-webkit-scrollbar {
+  width: 1px;
+  height:1px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 1px;
+  background-color: rgba(25, 147, 147, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background-color: rgba(25, 147, 147, 0.1);
+}
+		
