@@ -41,7 +41,6 @@ function update_table2(){//update table2
 		success : function(msg) { 
 			var str = "";
 			for(var i=msg.length-1;i >=0 ;i --){
-				
 				str = str + "<tr>"+
 				"<td>"+GetDateTimeFormatStr(new Date(msg[i].time)) +"</td>"+
 				"<td>"+msg[i].from +"</td>"+

@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="dataTable_wrapper">
 						<table class="table table-bordered table-hover" id="dataTables-example">
 							<thead>
-								<tr>
+								<tr>								
 									<th>time</th>
 									<th>from</th>
 									<th>to</th>
@@ -57,19 +57,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			url : "message/getAllMessage",
 			success : function(msg) { 
 				var str = "";
-				for(var i=msg.length-1;i >=0 ;i --){
-					str = str + "<tr>"+
-					"<td>"+GetDateTimeFormatStr(new Date(msg[i].time)) +"</td>"+
-					"<td>"+msg[i].from +"</td>"+
-					"<td>"+msg[i].to +"</td>"+
-					"<td>"+msg[i].type +"</td>"+ 
-					"<td>"+msg[i].content +"</td>"+
+				for(var i=msg.length-1;i>=0;i--){
+					str = str + "<tr>" +
+					"<td>" + GetDateTimeFormatStr(new Date(msg[i].time)) +"</td>"+
+					"<td>" + msg[i].from +"</td>"+
+					"<td>" + msg[i].to +"</td>"+
+					"<td>" + msg[i].type +"</td>"+ 
+					"<td>" + msg[i].content +"</td>"+
 					"</tr>";
 				}
 				document.getElementById("table2_body_fullscreen").innerHTML = str;
-				 $('#dataTables-example').DataTable({
-	               responsive: true
-	       });
+				$('#dataTables-example').DataTable({
+	               responsive: true,
+	               aaSorting: [[1, "asc"]]
+	       		});
 			},
 			error : function() {
 				alert("failed");
