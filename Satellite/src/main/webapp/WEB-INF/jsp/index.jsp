@@ -39,7 +39,7 @@
 	</style>
 </head>
 
-<body scroll="no" onload="startTime()">
+<body onload="startTime()">
 	<%@ include file="nav.jsp"%>
 	<%@ include file="row1.jsp"%>
 	<%@ include file="row2.jsp"%>

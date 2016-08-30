@@ -11,7 +11,7 @@
 				</button>		
             </div>
 			<div style="height:25%" id="panel1body1">
-				<div class="col-lg-8" style="height:100%;overflow:hidden">
+				<div class="col-lg-8" style="height:100%;overflow:auto">
 					<span style="color:red">
 						<center><font size="+1">数据接口状态(Data Interface Status)</font></center>
 					</span>
@@ -21,7 +21,7 @@
 		 				<li>数据平均传输速率(Data Trans Speed) <span class="pull-right" id="fileSpeed">400KB/S</span></li>
 		 			</ul>
 				</div>
-				<div class="col-lg-4" style="height:100%;overflow:hidden">
+				<div class="col-lg-4" style="height:100%;overflow:auto">
 					<span style="color:red">
 						<center><font size="+2" >北斗授时</font></center>
 					</span>
@@ -31,8 +31,8 @@
 				</div>				 
 			</div>
 			<br>
-            <div style="width: 10px;height: 73%;overflow: hidden;" id="panel1body21">
-				<div style="width: 40px;height:68%;overflow-y: hidden;"id="panel1body22">
+            <div style="width: 10px;height: 73%;overflow: auto;" id="panel1body21">
+				<div style="width: 40px;height:68%;overflow-y: auto;"id="panel1body22">
 					<ul id="ul1"></ul>
 				</div>
 			</div>
@@ -68,7 +68,7 @@
 					</thead>					
 				 </table>
 				 </div>
-				 <div class="panel-body" id="form1" style="overflow:hidden;height:75%;width:100%">
+				 <div class="panel-body" id="form1" style="overflow:auto;height:75%;width:100%">
 					<div class="table-responsive">
 						<table class="table">
 						   <col width='25%'>
@@ -111,7 +111,7 @@
 						</thead>	
 					</table>
 				</div>         
-                <div class="panel-body"	style="overflow:hidden;height:75%;width:100%">
+                <div class="panel-body"	style="overflow:auto;height:75%;width:100%">
                     <div class="table-responsive">
 						<table class="table" id="mytable2">
 							<col width='12%'>
