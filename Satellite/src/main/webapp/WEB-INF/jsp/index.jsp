@@ -39,7 +39,7 @@
 	</style>
 </head>
 
-<body onload="startTime()">
+<body scroll="no" onload="startTime()">
 	<%@ include file="nav.jsp"%>
 	<%@ include file="row1.jsp"%>
 	<%@ include file="row2.jsp"%>
@@ -74,12 +74,14 @@
 		update_table3(table2_body, 6);
 		update_viewer();
 	});
-
+	
+	/*屏幕适配*/
 	window.onresize = function() {
-		if (document.webkitIsFullScreen == true) {//全屏
-			//	alert("quanping");
-		} else if (document.webkitIsFullScreen == false) {
-			//	alert("tuichuquanping");
+		var isFullScreen = document.msFullscreenElement!=null || document.webkitFullscreenElement!=null ||
+					 document.mozFullScreenElement!=null;
+		if (isFullScreen) {
+			//全屏
+		} else if (!isFullScreen){
 			myresize();
 			document.getElementById("skyFrame").contentWindow.myzoom();//resize 'skyFrame'
 			document.getElementById('display').innerHTML = '';//clear 'display'
@@ -91,9 +93,7 @@
 			viewer1.animation.viewModel.shuttleRingAngle = 15;//set viewer's default speed
 			viewer2.animation.viewModel.shuttleRingAngle = 15;
 		}
-
 	};
-
 	function myresize() {//resize elements' size
 		var width = $("#panel1").width();
 		width = width * 0.98;
@@ -103,17 +103,31 @@
 		document.getElementById('display').innerHTML = '';
 
 		var height = document.documentElement.clientHeight;
-		var height1 = $("nav").height();
-		height = height - height1;
+		var height1 = $("#nav").height();
+		height = height - height1 - 60;
 		var tmp = height / 2 + "px";
 		$(".parent").css("height", tmp);//row1
 
-		$("#cesiumContainer1").height($("#table2").height());
-		$("#cesiumContainer2").height($("#table2").height());
-		$("#cesiumContainer3").height($("#table2").height());
+		$("#cesiumContainer1").height($("#table2").height()-$("#heading").height());
+		$("#cesiumContainer2").height($("#table2").height()-$("#heading").height());
+		$("#cesiumContainer3").height($("#table2").height()-$("#heading").height());
 		$("#cesiumContainer3").width($("#table2").width());
-
 	}
+	
+	/* //全屏改变事件
+	 document.addEventListener("mozfullscreenchange", function(e) {
+  		if(!e.currentTarget.mozFullScreen)
+  			doresize();
+	}); 
+	document.addEventListener("webkitfullscreenchange", function(e) {
+  		if(!e.currentTarget.webkitIsFullScreen)
+  			doresize();
+	});
+	document.addEventListener("MSFullscreenChange", function(e) {
+  	    if(document.msFullscreenElement==null){
+  	    	setTimeout(function(){doresize();},300);
+  	    }
+	}); */
 </script>
 
 </html>

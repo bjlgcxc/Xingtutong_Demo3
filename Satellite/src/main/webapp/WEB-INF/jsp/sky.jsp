@@ -31,7 +31,12 @@
      	//sky
 		function myzoom(){
 			var height = $('#cesiumContainer3', parent.document).height();
-			document.body.style.zoom=height/400; 
+			var zoomValue = height/400;
+			var mytransform = "scale(";
+			mytransform = mytransform+zoomValue + "," + zoomValue +")";
+			document.body.style.transform=mytransform;
+			
+			document.body.style.transformOrigin=" top";
 		}
 		
 		var RADIUS;
@@ -54,20 +59,20 @@
 			cxt.beginPath();
 			cxt.fillStyle ='white';
 			cxt.arc(RADIUS, RADIUS, RADIUS*2/3, 0, Math.PI*2, false);
-			cxt.strokeStyle="#d5a6bd";
+			cxt.strokeStyle="white";
 			cxt.stroke();
 
 			cxt.beginPath();
-			cxt.fillStyle = 'rgb(242,242,242)';
+			cxt.fillStyle = 'rgb(255,255,255)';
 			cxt.arc(RADIUS, RADIUS, RADIUS/3, 0, Math.PI*2, false);
-			cxt.strokeStyle="#d5a6bd";
+			cxt.strokeStyle="white";
 			cxt.stroke();
 
 			cxt.save();	//保存状态
 
 			//通过旋转的方式画圆中的分割线
 			cxt.beginPath();
-			cxt.strokeStyle = 'rgb(220,220,220)';
+			cxt.strokeStyle = 'rgb(255,255,255)';
 			cxt.translate(RADIUS,RADIUS);
 			var position = new Array("W","N","E","S");
 			for(var i=0;i<4;i++){
@@ -77,12 +82,12 @@
 			}
 			cxt.stroke();
 			
-			cxt.strokeStyle="#9fc5e8";
-			cxt.font = "20px Arial";
-			cxt.strokeText("S",0,RADIUS-5);
+			cxt.strokeStyle="#ffffff";
+			cxt.font = "20px 微软雅黑";
+			cxt.strokeText("S",3,RADIUS-5);
 			cxt.strokeText("W",RADIUS-25,0);
-			cxt.strokeText("N",0,-RADIUS+20);
-			cxt.strokeText("E",-RADIUS+5,0);
+			cxt.strokeText("N",3,-RADIUS+20);
+			cxt.strokeText("E",-RADIUS+3,0);
 
 			cxt.restore();
 			cxt.restore();

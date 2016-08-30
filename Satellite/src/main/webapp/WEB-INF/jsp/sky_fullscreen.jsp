@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link href="css/sb-admin-2.css" rel="stylesheet">
 </head>
 
-<body style="zoom:1">
+<body style="zoom:1" >
 <div style="float:left"> 
 	<input class="knob" data-cursor=true data-skin="tron" data-ticks="8" data-angleOffset="0"  data-width="100" value="1">
 </div>
@@ -227,21 +227,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										'displayPrevious' : $this
 												.data('displayprevious'),
 										'fgColor' : $this
-												.data('fgcolor')
-												|| '#87CEEB',
+											.data('fgcolor')
+												|| '#FFFFFF',
 										'cgColor' : $this
 												.data('cgcolor')
 												|| $this
 														.data('fgcolor')
-												|| '#87CEEB',
+												|| '#FFFFFF',
 										'bgColor' : $this
 												.data('bgcolor')
-												|| '#EEEEEE',
+												|| '#FFFFFF',
 										'tickColor' : $this
 												.data('tickColor')
 												|| $this
 														.data('fgcolor')
-												|| '#DDDDDD',
+												|| '#FFFFFF',
 										'ticks' : $this
 												.data('ticks') || 0,
 										'tickLength' : $this
@@ -495,19 +495,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			cxt.beginPath();
 			cxt.arc(RADIUS, RADIUS, RADIUS * 2 / 3, 0, Math.PI * 2, false);
-			cxt.strokeStyle = "#d5a6bd";
+			cxt.strokeStyle = "white";
 			cxt.stroke();
 
 			cxt.beginPath();
 			cxt.arc(RADIUS, RADIUS, RADIUS / 3, 0, Math.PI * 2, false);
-			cxt.strokeStyle = "#ffe599";
+			cxt.strokeStyle = "white";
 			cxt.stroke();
 
 			cxt.save(); //保存状态
 
 			//通过旋转的方式画圆中的分割线
 			cxt.beginPath();
-			cxt.strokeStyle = 'rgb(220,220,220)';
+			cxt.strokeStyle = 'rgb(255,255,255)';
 			cxt.translate(RADIUS, RADIUS);
 			for ( var i = 0; i < 4; i++) {
 				cxt.rotate(Math.PI / 180 * 90);
@@ -516,11 +516,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			cxt.stroke();
 
-			cxt.strokeStyle = "#9fc5e8";
+			cxt.strokeStyle = "#ffffff";
 			cxt.font = "30px Arial";
-			cxt.strokeText("S", 0, RADIUS - 5);
+			cxt.strokeText("S", 3, RADIUS - 5);
 			cxt.strokeText("W", RADIUS - 35, 0);
-			cxt.strokeText("N", 0, -RADIUS + 30);
+			cxt.strokeText("N", 3, -RADIUS + 30);
 			cxt.strokeText("E", -RADIUS + 2, 0);
 
 			cxt.restore();

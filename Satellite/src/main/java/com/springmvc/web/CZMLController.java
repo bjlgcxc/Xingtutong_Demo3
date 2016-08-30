@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.net.UnknownHostException;
+
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 
@@ -30,7 +32,7 @@ public class CZMLController {
 	 */
 	@ResponseBody
     @RequestMapping(value="/getCzmlDataSource",method=RequestMethod.GET)
-	public JSONArray getCzmlDataSource(HttpServletRequest request) throws IOException{
+	public JSONArray getCzmlDataSource(HttpServletRequest request) throws IOException,UnknownHostException{
 		
 		String queryString = request.getQueryString();
 		URL url = new URL("http://www.orbitalpredictor.com/api/predict_orbit/?" + queryString);

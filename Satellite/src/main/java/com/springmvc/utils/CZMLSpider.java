@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 /**
  * 用于解决Controllre中无法直接调用外部接口来获取返回数据的问题
@@ -14,12 +15,12 @@ import java.net.URL;
  */
 public class CZMLSpider {
 	
-	public static String getCZMLData(URL url) throws IOException {
+	public static String getCZMLData(URL url) throws IOException,UnknownHostException{
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		InputStream inputStream = conn.getInputStream();   //通过输入流获得网站数据
 		byte[] getData = readInputStream(inputStream);     //获得网站的二进制数据
 		String data = new String(getData, "gb2312");
-		inputStream.close();		
+		inputStream.close();
 		return data;
 	}
 

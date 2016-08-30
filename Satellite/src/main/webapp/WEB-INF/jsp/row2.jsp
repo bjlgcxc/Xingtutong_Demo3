@@ -6,9 +6,9 @@
 	<div class="col-lg-4">
 		<div class="panel panel-info" id="id11">
 			<div class="panel-heading">北斗卫星轨道3D展示
-				<span class="pull-right" id="chart1_fullScreen">
-					<i class="fa fa-expand"></i>
-				</span> 
+				<button type="button" class="pull-right btn btn-xs btn-default" id="chart1_fullScreen">
+	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+	        	</button>	 
 			</div>
 			<div class="panel-body" id="id1" style="height:100%;width:100%">
 				<div id="cesiumContainer1" style="height:100%;width:100%"></div>
@@ -37,9 +37,9 @@
 	<div class="col-lg-4">
 		<div class="panel panel-danger">
 			<div class="panel-heading">北斗卫星轨道2D展示
-				<span class="pull-right" id="chart2_fullScreen">
-					<i class="fa fa-expand"></i>
-				</span> 
+				<button type="button" class="pull-right btn btn-xs btn-default" id="chart2_fullScreen">
+	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+	        	</button>	
 			</div>
 			<div class="panel-body">
 				<div id="cesiumContainer2" style="height:100%;width:100%"></div>
@@ -72,9 +72,9 @@
 	<div class="col-lg-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">北斗卫星投影展示 
-				<span class="pull-right" id="chart3_fullScreen">
-					<i class="fa fa-expand"></i>
-				</span>
+				<button type="button" class="pull-right btn btn-xs btn-default" id="chart3_fullScreen">
+	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+	        	</button>	
 			</div>
 			<div class="panel-body" style="height:100%;width:100%" id="cesiumContainer3">
 		 		<iframe src="sky.html " width="100%" height="100%" id="skyFrame" name="skyFrame"  frameborder="no" scrolling="no"></iframe>

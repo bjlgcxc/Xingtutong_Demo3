@@ -39,7 +39,8 @@ public class MessageController {
 	@RequestMapping(value="/sayHello")
 	public JSONObject sayHello(@RequestBody JSONObject jsonObj) throws IOException{
 		
-		url = jsonObj.getString("url");
+		if(jsonObj.containsKey("url"))
+			url = jsonObj.getString("url");
 		
 		JSONObject json = new JSONObject();
 		//send

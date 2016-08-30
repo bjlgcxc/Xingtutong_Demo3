@@ -6,10 +6,12 @@
 	<div class="left" >
 		<div class="panel panel-warning" style="height:100%;width:100%" id="panel1">
             <div class="panel-heading"  id="panel1head">数据交换日志
-				<span class="pull-right" id="table1_fullScreen"><i class="fa fa-expand"></i></span>		
+				<button type="button" class="pull-right btn btn-xs btn-default" id="table1_fullScreen">
+					<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+				</button>		
             </div>
 			<div style="height:25%" id="panel1body1">
-				<div class="col-lg-8" style="height:100%;overflow:auto">
+				<div class="col-lg-8" style="height:100%;overflow:hidden">
 					<span style="color:red">
 						<center><font size="+1">数据接口状态(Data Interface Status)</font></center>
 					</span>
@@ -19,14 +21,18 @@
 		 				<li>数据平均传输速率(Data Trans Speed) <span class="pull-right" id="fileSpeed">400KB/S</span></li>
 		 			</ul>
 				</div>
-				<div class="col-lg-4" style="height:100%;overflow:auto">
-					<span style="color:red"><center><font size="+2" >北斗授时</font></center></span>
-					<span style="color:red;-webkit-text-size-adjust: none;"><center><font size="+1" ><div id="txt"></div></font></center></span>
+				<div class="col-lg-4" style="height:100%;overflow:hidden">
+					<span style="color:red">
+						<center><font size="+2" >北斗授时</font></center>
+					</span>
+					<span style="color:red;-webkit-text-size-adjust: none;">
+						<center><font size="+1" ><div id="txt"></div></font></center>
+					</span>
 				</div>				 
 			</div>
 			<br>
             <div style="width: 10px;height: 73%;overflow: hidden;" id="panel1body21">
-				<div style="width: 40px;height:68%;overflow-y: auto;"id="panel1body22">
+				<div style="width: 40px;height:68%;overflow-y: hidden;"id="panel1body22">
 					<ul id="ul1"></ul>
 				</div>
 			</div>
@@ -36,35 +42,33 @@
 	<!-- 2.北斗短报文收发记录 -->
 	<div class="center" >
 		<div class="panel panel-warning" style="height:100%;width:100%">
-        <div class="panel-heading" style="cursor:default;">北斗短报文收发记录 
-        	<span class="pull-right" id="form1_fullScreen">
-        		<i class="fa fa-expand"></i>
-        	</span> 
-            <span class="pull-right" data-toggle="modal" data-target="#submitInfo">
-            	<i class="fa fa-send fa-fw"></i>发送消息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </span>				
-        </div>
-        
-        <!-- 3.数据交换内容 -->
-        <div class="table-responsive">
-			<table class="table">
-			   <thead>
-				  <col width='25%'>
-				  <col width='15%'>
-				  <col width='15%'>
-				  <col width='15%'>
-				  <col width='30%'>
-			      <tr>
-					  <th>时间</th>
-					  <th>发送</th>
-					  <th>接收</th>
-					  <th>类型</th>
-					  <th>内容</th>
-			   	  </tr>
-				</thead>					
-			 </table>
-			 </div>
-				<div class="panel-body" id="form1" style="overflow:auto;height:75%;width:100%">
+	        <div class="panel-heading" style="cursor:default;">北斗短报文收发记录 
+	        	<button type="button" class="pull-right btn btn-xs btn-default" id="form1_fullScreen">
+	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+	        	</button>		 
+	            <button type="button" class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#submitInfo">
+	            	<span class="glyphicon glyphicon-send"></span>发送消息
+	            </button>			
+	        </div>
+	        <div class="table-responsive">
+				<table class="table">
+				   <thead>
+					  <col width='25%'>
+					  <col width='15%'>
+					  <col width='15%'>
+					  <col width='15%'>
+					  <col width='30%'>
+				      <tr>
+						  <th>时间</th>
+						  <th>发送</th>
+						  <th>接收</th>
+						  <th>类型</th>
+						  <th>内容</th>
+				   	  </tr>
+					</thead>					
+				 </table>
+				 </div>
+				 <div class="panel-body" id="form1" style="overflow:hidden;height:75%;width:100%">
 					<div class="table-responsive">
 						<table class="table">
 						   <col width='25%'>
@@ -78,22 +82,24 @@
 				</div>
 			</div>
 		</div>
+		
+        <!-- 3.数据交换内容 -->
 		<div class="right" >
-			<div class="panel panel-warning" style="height:100%;width:100%">
-                <div class="panel-heading">数据交换内容
-	                <span class="pull-right" id="table2_fullScreen">
-	                	<i class="fa fa-expand"></i> 
-	                </span>
+			<div class="panel panel-warning" style="height:100%;width:100%" id="table2">
+                <div class="panel-heading" id="heading">数据交换内容
+	                <button type="button" class="pull-right btn btn-xs btn-default" id="table2_fullScreen">
+	        			<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+	        		</button>	
                 </div>
                 <div class="table-responsive">
 					<table class="table">
 						<thead>
-						    <col width='10%'>
-							<col width='17%'>
-							<col width='17%'>
-							<col width='17%'>
-							<col width='17%'>
-							<col width='17%'>
+						    <col width='12%'>
+							<col width='15%'>
+							<col width='15%'>
+							<col width='15%'>
+							<col width='15%'>
+							<col width='15%'>
 							<tr>
 								<th>卫星编号</th>
 								<th>平近点角</th>
@@ -105,15 +111,15 @@
 						</thead>	
 					</table>
 				</div>         
-                <div class="panel-body"	style="overflow:auto;height:75%;width:100%" id="table2">
+                <div class="panel-body"	style="overflow:hidden;height:75%;width:100%">
                     <div class="table-responsive">
 						<table class="table" id="mytable2">
-							<col width='10%'>
-						    <col width='17%'>
-						    <col width='17%'>
-						    <col width='17%'>
-						    <col width='17%'>
-						    <col width='17%'>
+							<col width='12%'>
+						    <col width='15%'>
+						    <col width='15%'>
+						    <col width='15%'>
+						    <col width='15%'>
+						    <col width='15%'>
 							<tbody id="table2_body"></tbody>
 						</table>
 					</div>

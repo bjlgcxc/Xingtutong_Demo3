@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="dataTable_wrapper">
-						<table class="table table-bordered table-hover" id="dataTables-example">
+						<table class="table table-bordered table-hover" id="dataTables-example" style="border:1px solid #ddd">
 							<thead>
 								<tr>								
 									<th>time</th>

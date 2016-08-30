@@ -73,8 +73,9 @@
 	$(function() {
 		var speed = $("#fileSpeed", window.parent.document).html();
 		$("#speed_iframe").html(speed);
-		var clock = $("#txt", window.parent.document).html();
-		$("#clock_iframe").html(clock);
+		startTime();
+		
+		//填充数据
 		$.ajax({
 			type : "get",
 			dataType : "json",
@@ -98,6 +99,41 @@
 			}
 		});
 	});
+	
+	//set the clock in the table1
+	function startTime(){
+		var today=new Date();
+		var year=today.getFullYear();
+		var month=today.getMonth()+1;
+		var day = today.getDate();
+		var h=today.getHours();
+		var m=today.getMinutes();
+		var s=today.getSeconds();
+		var ms=today.getMilliseconds();
+		// add a zero in front of numbers<10
+		m=checkTime(m);
+		s=checkTime(s);
+		ms=checkTime2(ms);
+		document.getElementById('clock_iframe').innerHTML=year+"-"+month+"-"+day+"<br>"+h+":"+m+":"+s+"."+ms;
+		t=setTimeout('startTime()',50);
+	}
+	
+	function checkTime(i){
+		if (i<10) {
+			i = "0" + i;
+		}
+		return i;
+	}
+	
+	function checkTime2(i){
+		if (i<10) {
+			i="00" + i;return i;
+		}
+		if (i<100) {
+			i="0" + i;return i;
+		}
+		return i;
+	}
 </script>
 
 </body>
