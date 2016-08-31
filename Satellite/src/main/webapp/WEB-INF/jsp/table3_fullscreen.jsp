@@ -25,6 +25,9 @@
 </head>
 
 <body style="zoom:1">
+	<div style="text-align:center;">
+		<h3>卫星数据交换内容</h3>
+	</div>
 	<div style="margin:2px 0;">
 		<input id="Token" type="hidden" name="Token" value="" />
 	</div>

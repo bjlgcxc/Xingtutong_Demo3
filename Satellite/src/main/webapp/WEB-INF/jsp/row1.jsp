@@ -6,7 +6,7 @@
 	<div class="left" >
 		<div class="panel panel-warning" style="height:100%;width:100%" id="panel1">
             <div class="panel-heading"  id="panel1head">数据交换日志
-				<button type="button" class="pull-right btn btn-xs btn-default" id="table1_fullScreen">
+				<button type="button" class="pull-right btn btn-sm btn-default" id="table1_fullScreen">
 					<span class="glyphicon glyphicon-resize-full"></span>全屏显示
 				</button>		
             </div>
@@ -43,10 +43,10 @@
 	<div class="center" >
 		<div class="panel panel-warning" style="height:100%;width:100%">
 	        <div class="panel-heading" style="cursor:default;">北斗短报文收发记录 
-	        	<button type="button" class="pull-right btn btn-xs btn-default" id="form1_fullScreen">
+	        	<button type="button" class="pull-right btn btn-sm btn-default" id="form1_fullScreen">
 	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
 	        	</button>		 
-	            <button type="button" class="pull-right btn btn-xs btn-default" data-toggle="modal" data-target="#submitInfo">
+	            <button type="button" class="pull-right btn btn-sm btn-default" data-toggle="modal" data-target="#submitInfo">
 	            	<span class="glyphicon glyphicon-send"></span>发送消息
 	            </button>			
 	        </div>
@@ -67,66 +67,66 @@
 				   	  </tr>
 					</thead>					
 				 </table>
-				 </div>
-				 <div class="panel-body" id="form1" style="overflow:auto;height:75%;width:100%">
-					<div class="table-responsive">
-						<table class="table">
-						   <col width='25%'>
-						   <col width='15%'>
-						   <col width='15%'>
-						   <col width='15%'>
-						   <col width='30%'>
-						   <tbody id="form1_body"></tbody>
-						</table>
-					</div>
+			</div>
+			<div class="panel-body" id="form1" style="overflow:auto;height:75%;width:100%">
+				<div class="table-responsive">
+					<table class="table">
+					   <col width='25%'>
+					   <col width='15%'>
+					   <col width='15%'>
+					   <col width='15%'>
+					   <col width='30%'>
+					   <tbody id="form1_body"></tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-		
-        <!-- 3.数据交换内容 -->
-		<div class="right" >
-			<div class="panel panel-warning" style="height:100%;width:100%" id="table2">
-                <div class="panel-heading" id="heading">数据交换内容
-	                <button type="button" class="pull-right btn btn-xs btn-default" id="table2_fullScreen">
-	        			<span class="glyphicon glyphicon-resize-full"></span>全屏显示
-	        		</button>	
-                </div>
-                <div class="table-responsive">
-					<table class="table">
-						<thead>
-						    <col width='12%'>
-							<col width='15%'>
-							<col width='15%'>
-							<col width='15%'>
-							<col width='15%'>
-							<col width='15%'>
-							<tr>
-								<th>卫星编号</th>
-								<th>平近点角</th>
-								<th>偏心率</th>
-								<th>倾角</th>
-								<th>近地点角距</th>
-								<th>星历参照时刻</th>
-							</tr>
-						</thead>	
-					</table>
-				</div>         
-                <div class="panel-body"	style="overflow:auto;height:75%;width:100%">
-                    <div class="table-responsive">
-						<table class="table" id="mytable2">
-							<col width='12%'>
-						    <col width='15%'>
-						    <col width='15%'>
-						    <col width='15%'>
-						    <col width='15%'>
-						    <col width='15%'>
-							<tbody id="table2_body"></tbody>
-						</table>
-					</div>
-                </div>
-            </div>
-		</div>
 	</div>
+		
+       <!-- 3.数据交换内容 -->
+	<div class="right" >
+		<div class="panel panel-warning" style="height:100%;width:100%" id="table2">
+            <div class="panel-heading" id="heading">数据交换内容
+                <button type="button" class="pull-right btn btn-sm btn-default" id="table2_fullScreen">
+       				<span class="glyphicon glyphicon-resize-full"></span>全屏显示
+       			</button>	
+            </div>
+            <div class="table-responsive">
+				<table class="table">
+					<thead>
+					    <col width='12%'>
+						<col width='15%'>
+						<col width='15%'>
+						<col width='15%'>
+						<col width='15%'>
+						<col width='15%'>
+						<tr>
+							<th>卫星编号</th>
+							<th>平近点角</th>
+							<th>偏心率</th>
+							<th>倾角</th>
+							<th>近地点角距</th>
+							<th>星历参照时刻</th>
+						</tr>
+					</thead>	
+				</table>
+			</div>         
+            <div class="panel-body"	style="overflow:auto;height:75%;width:100%">
+                <div class="table-responsive">
+				    <table class="table" id="mytable2">
+					    <col width='12%'>
+				        <col width='15%'>
+				        <col width='15%'>
+				        <col width='15%'>
+				        <col width='15%'>
+				        <col width='15%'>
+					    <tbody id="table2_body"></tbody>
+				    </table>
+			    </div>
+             </div>
+          </div>
+	   </div>
+    </div>
 	
 	<!-- 发送短报文弹出框 -->
 	<div id="display" class="row"></div>

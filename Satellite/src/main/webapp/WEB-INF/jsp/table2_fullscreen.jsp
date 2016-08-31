@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,6 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <body>
 <div id="page-wrapper">
+	<div style="text-align:center;">
+		<h3>北斗短报文收发记录</h3>
+	</div>
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
@@ -61,15 +64,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					str = str + "<tr>" +
 					"<td>" + GetDateTimeFormatStr(new Date(msg[i].time)) +"</td>"+
 					"<td>" + msg[i].from +"</td>"+
-					"<td>" + msg[i].to +"</td>"+
-					"<td>" + msg[i].type +"</td>"+ 
-					"<td>" + msg[i].content +"</td>"+
+					"<td>" + msg[i].to +"</td>";
+					if(msg[i].type == "0"){
+						str = str + "<td>receive</td>";		
+					}
+					else if(msg[i].type == "1"){
+						str = str + "<td>send</td>";			
+					}
+					str += "<td>" + msg[i].content +"</td>"+
 					"</tr>";
 				}
 				document.getElementById("table2_body_fullscreen").innerHTML = str;
 				$('#dataTables-example').DataTable({
 	               responsive: true,
-	               aaSorting: [[1, "asc"]]
+	               aaSorting: [[0, "desc"]]
 	       		});
 			},
 			error : function() {

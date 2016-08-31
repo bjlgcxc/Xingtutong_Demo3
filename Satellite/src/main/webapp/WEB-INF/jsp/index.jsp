@@ -50,7 +50,7 @@
 <script src="js/roll/jquery.bootstrap.newsbox.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-
+	
 	$(document).ready(function() {
 		//webSocke
 		var hostport = document.location.host;
@@ -82,18 +82,21 @@
 		if (isFullScreen) {
 			//全屏
 		} else if (!isFullScreen){
-			myresize();
-			document.getElementById("skyFrame").contentWindow.myzoom();//resize 'skyFrame'
-			document.getElementById('display').innerHTML = '';//clear 'display'
-			$("#form1").css("background", "rgba(0,0,0,0)");//set table2's background
-			viewer1.animation.container.style.visibility = "hidden";//hide viewer's animation
-			viewer1.timeline.container.style.visibility = "hidden";
-			viewer2.animation.container.style.visibility = "hidden";
-			viewer2.timeline.container.style.visibility = "hidden";
-			viewer1.animation.viewModel.shuttleRingAngle = 15;//set viewer's default speed
-			viewer2.animation.viewModel.shuttleRingAngle = 15;
+			doresize();
 		}
 	};
+	function doresize(){
+		myresize();
+		document.getElementById("skyFrame").contentWindow.myzoom();//resize 'skyFrame'
+		document.getElementById('display').innerHTML = '';//clear 'display'
+		$("#form1").css("background", "rgba(0,0,0,0)");//set table2's background
+		viewer1.animation.container.style.visibility = "hidden";//hide viewer's animation
+		viewer1.timeline.container.style.visibility = "hidden";
+		viewer2.animation.container.style.visibility = "hidden";
+		viewer2.timeline.container.style.visibility = "hidden";
+		viewer1.animation.viewModel.shuttleRingAngle = 15;//set viewer's default speed
+		viewer2.animation.viewModel.shuttleRingAngle = 15;
+	}
 	function myresize() {//resize elements' size
 		var width = $("#panel1").width();
 		width = width * 0.98;
@@ -114,8 +117,8 @@
 		$("#cesiumContainer3").width($("#table2").width());
 	}
 	
-	/* //全屏改变事件
-	 document.addEventListener("mozfullscreenchange", function(e) {
+	//全屏改变事件
+	document.addEventListener("mozfullscreenchange", function(e) {
   		if(!e.currentTarget.mozFullScreen)
   			doresize();
 	}); 
@@ -127,7 +130,7 @@
   	    if(document.msFullscreenElement==null){
   	    	setTimeout(function(){doresize();},300);
   	    }
-	}); */
+	}); 
 </script>
 
 </html>

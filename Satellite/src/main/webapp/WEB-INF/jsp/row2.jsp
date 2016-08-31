@@ -6,7 +6,7 @@
 	<div class="col-lg-4">
 		<div class="panel panel-info" id="id11">
 			<div class="panel-heading">北斗卫星轨道3D展示
-				<button type="button" class="pull-right btn btn-xs btn-default" id="chart1_fullScreen">
+				<button type="button" class="pull-right btn btn-sm btn-default" id="chart1_fullScreen">
 	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
 	        	</button>	 
 			</div>
@@ -28,6 +28,7 @@
 					});
 					viewer1.animation.container.style.visibility="hidden";
 					viewer1.timeline.container.style.visibility="hidden";
+					
 				</script>
 			</div>
 		</div>
@@ -37,7 +38,7 @@
 	<div class="col-lg-4">
 		<div class="panel panel-danger">
 			<div class="panel-heading">北斗卫星轨道2D展示
-				<button type="button" class="pull-right btn btn-xs btn-default" id="chart2_fullScreen">
+				<button type="button" class="pull-right btn btn-sm btn-default" id="chart2_fullScreen">
 	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
 	        	</button>	
 			</div>
@@ -72,7 +73,7 @@
 	<div class="col-lg-4">
 		<div class="panel panel-warning">
 			<div class="panel-heading">北斗卫星投影展示 
-				<button type="button" class="pull-right btn btn-xs btn-default" id="chart3_fullScreen">
+				<button type="button" class="pull-right btn btn-sm btn-default" id="chart3_fullScreen">
 	        		<span class="glyphicon glyphicon-resize-full"></span>全屏显示
 	        	</button>	
 			</div>
