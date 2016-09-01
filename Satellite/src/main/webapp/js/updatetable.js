@@ -27,7 +27,7 @@ function update_table1() {
 				pauseOnHover : false,
 				navigation : false,
 				direction : 'down',
-				newsTickerInterval : 5000,
+				newsTickerInterval : 50000000,
 				onToDo : function() {
 					//console.log(this);
 				}
@@ -54,10 +54,10 @@ function update_table2(){//update table2
 				"<td>"+msg[i].from +"</td>"+
 				"<td>"+msg[i].to +"</td>";
 				if(msg[i].type == "0"){
-					str = str + "<td>receive</td>";		
+					str = str + "<td>Receive</td>";		
 				}
 				else if(msg[i].type == "1"){
-					str = str + "<td>send</td>";			
+					str = str + "<td>Send</td>";
 				}
 				if(msg[i].content.length > 10){
 					str = str + "<td>"+msg[i].content.substr(0,15) +"......</td>"+

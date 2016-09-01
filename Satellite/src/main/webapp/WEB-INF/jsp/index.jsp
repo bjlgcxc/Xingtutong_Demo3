@@ -16,14 +16,19 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="">
 	<meta name="author" content="">
-
+	
 	<link href="css/mybootstrap.min.css" rel="stylesheet">
 	<link href="css/sb-admin-2.css" rel="stylesheet">
 	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="css/roll/site.css" rel="stylesheet" type="text/css" />
 	<link href="css/scrollstyle.css" rel="stylesheet" type="text/css" />
+	
+	
+	<link rel="stylesheet" href="css/scroll/scroll.css">
+	<link rel="stylesheet" href="css/scroll/jquery.mCustomScrollbar.css">
 
 	<script src="js/jquery.min.js"></script>
+	<script src="js/scroll/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/sockjs-0.3.min.js"></script>
 	<script src="js/jquery.dataTables.min.js"></script>
@@ -37,6 +42,16 @@
 			width: 100%; height: 100%; margin: 0; padding: 0; 
 		}
 	</style>
+
+	<style>
+	.grid{table-layout:fixed;}
+    .grid th {overflow: hidden;white-space: nowrap;padding: 0;text-align: left;vertical-align: middle;width: 90px;max-width: 90px;font-size: 11px;border-width: 0 1px 1px 0;color:#fff}
+    .grid td {overflow: hidden;white-space: nowrap;width: 90px;max-width: 90px;height: 16px;line-height: 16px;font-size: 13px;border-width: 0 1px 1px 0;text-align:left;vertical-align: middle;padding: 1px 2px;}
+    .grid th:first-child, .grid td:first-child {width: 148px;text-align: left;color: #fff;padding-left: 4px;}
+	
+	</style>
+
+
 </head>
 
 <body onload="startTime()">
@@ -50,7 +65,51 @@
 <script src="js/roll/jquery.bootstrap.newsbox.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	
+		(function($) {
+			$(window).load(function() {
+				$("#panel1body11").mCustomScrollbar({
+					axis : "yx",
+					scrollButtons : {
+						enable : true
+					},
+					theme : "dark-thin",
+					scrollbarPosition : "inside"
+				});
+				$("#panel1body12").mCustomScrollbar({
+					axis : "yx",
+					scrollButtons : {
+						enable : true
+					},
+					theme : "dark-thin",
+					scrollbarPosition : "inside"
+				});
+				$("#panel1body21").mCustomScrollbar({
+					axis : "xy",
+					scrollButtons : {
+						enable : true
+					},
+					theme : "dark-thin",
+					scrollbarPosition : "outside"
+				});
+				$("#form1").mCustomScrollbar({
+					axis : "xy",
+					scrollButtons : {
+						enable : true
+					},
+					theme : "dark-thin",
+					scrollbarPosition : "outside"
+				});
+				$("#panel3boody1").mCustomScrollbar({
+					axis : "y",
+					scrollButtons : {
+						enable : true
+					},
+					theme : "dark-thin",
+					scrollbarPosition : "outside"
+				});
+			});
+		})(jQuery);
+
 	$(document).ready(function() {
 		//webSocke
 		var hostport = document.location.host;
@@ -63,7 +122,7 @@
 			update_table2();
 		};
 		ws.onerror = function() {
-			alert('webSocket连接失败');
+			/* alert('webSocket连接失败'); */
 		};
 		
 		myresize();
@@ -98,30 +157,29 @@
 		viewer2.animation.viewModel.shuttleRingAngle = 15;
 	}
 	function myresize() {//resize elements' size
-		var width = $("#panel1").width();
-		width = width * 0.98;
-		var w1 = width + "px", w2 = width + 30 + "px";
-		$("#panel1body21").width(w1);
-		$("#panel1body22").width(w2);
-		document.getElementById('display').innerHTML = '';
+	
+		document.getElementById('display').innerHTML = '';//清空display
 
-		var height = document.documentElement.clientHeight;
+		var height = document.documentElement.clientHeight;//设置高度
 		var height1 = $("#nav").height();
 		height = height - height1 - 60;
 		var tmp = height / 2 + "px";
-		$(".parent").css("height", tmp);//row1
+		$(".parent").css("height", tmp);
 
+		$("#panel1body21").height($("#panel1").height()-$("#panel1head").height()*1.5-$("#panel1body1").height()*1.5) *0.9 - 60;//设置panel1的高度自适应
+		$("#form1").height($("#panel2").height()-$("#panel2head").height()*1.5-$("#panel2body1").height()*1.5) *0.9 - 60;//设置panel1的高度自适应
+		$("#panel3boody1").height($("#table2").height()-$("#heading").height()*1.5-$("#thead3").height()*1.5) *0.9 - 60;//设置panel3的高度自适应
+		
 		$("#cesiumContainer1").height($("#table2").height()-$("#heading").height());
 		$("#cesiumContainer2").height($("#table2").height()-$("#heading").height());
 		$("#cesiumContainer3").height($("#table2").height()-$("#heading").height());
 		$("#cesiumContainer3").width($("#table2").width());
 	}
-	
 	//全屏改变事件
 	document.addEventListener("mozfullscreenchange", function(e) {
   		if(!e.currentTarget.mozFullScreen)
   			doresize();
-	}); 
+	});
 	document.addEventListener("webkitfullscreenchange", function(e) {
   		if(!e.currentTarget.webkitIsFullScreen)
   			doresize();
@@ -130,7 +188,7 @@
   	    if(document.msFullscreenElement==null){
   	    	setTimeout(function(){doresize();},300);
   	    }
-	}); 
+	});
 </script>
 
 </html>
