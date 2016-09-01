@@ -45,7 +45,7 @@
 
 	<style>
 	.grid{table-layout:fixed;}
-    .grid th {overflow: hidden;white-space: nowrap;padding: 0;text-align: left;vertical-align: middle;width: 90px;max-width: 90px;font-size: 11px;border-width: 0 1px 1px 0;color:#fff}
+    .grid th {overflow: hidden;white-space: nowrap;padding: 0;text-align: left;vertical-align: middle;width: 90px;max-width: 90px;border-width: 0 1px 1px 0;color:#fff}
     .grid td {overflow: hidden;white-space: nowrap;width: 90px;max-width: 90px;height: 16px;line-height: 16px;font-size: 13px;border-width: 0 1px 1px 0;text-align:left;vertical-align: middle;padding: 1px 2px;}
     .grid th:first-child, .grid td:first-child {width: 148px;text-align: left;color: #fff;padding-left: 4px;}
 	

@@ -38,7 +38,7 @@
 		$("#order").datagrid({
 			iconCls:'icon-edit',
 			fit: true, 
-			pageSize: 10,//每页显示的记录条数，默认为10  
+			pageSize: 20,//每页显示的记录条数，默认为10  
 		    style:{padding:'8 8 10 8'},                 
 	        singleSelect:true,  
 	        method:'get',
@@ -77,7 +77,7 @@
 			});
 			var p = $("#order").datagrid("getPager");  
 		       $(p).pagination({  
-		    	pageSize: 10,//每页显示的记录条数，默认为10      	 	
+		    	pageSize: 20,//每页显示的记录条数，默认为10      	 	
 		   	    pageList: [10,20,30,40,50],//可以设置每页记录条数的列表	        
 		   	    beforePageText: '第',//页数文本框前显示的汉字  
 		        afterPageText: '页    共 {pages} 页',  

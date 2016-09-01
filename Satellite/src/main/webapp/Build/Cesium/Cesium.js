@@ -51819,7 +51819,7 @@
 			var t = this._mode;
 			if (t === b.MORPHING && this._scene.completeMorph(), t === b.SCENE2D)
 				this.flyTo({
-					destination : w.MAX_VALUE,
+					destination : Cesium.Cartesian3.fromDegrees(95.3,0,50000000.0),
 					duration : e,
 					endTransform : _.IDENTITY
 				});
@@ -69562,7 +69562,7 @@
 			this._command = c(function () {
 					i._scene.camera.flyHome(i._duration)
 				}),
-			this.tooltip = "查看主页",
+			this.tooltip = "主页",
 			u.track(this, ["tooltip"])
 		}
 		return r(h.prototype, {

@@ -7,7 +7,7 @@
 		<div class="panel panel-warning" style="height:100%;width:100%"
 			id="panel1">
 			<div class="panel-heading" id="panel1head">
-				数据交换日志
+				卫星数据交换日志
 				<button type="button" class="pull-right btn btn-sm btn-default"
 					id="table1_fullScreen">
 					<span class="glyphicon glyphicon-resize-full"></span>全屏显示
@@ -69,11 +69,11 @@
 			</div>
 			<div id="panel2body1">
 				<table class="table grid" style="width:100%;overflow:auto">
-					<col style="width: 25%" />
-					<col style="width: 10%" />
-					<col style="width: 10%" />
-					<col style="width: 10%" />
-					<col style="width: 35%" />
+					<col style="width: 30%" />
+					<col style="width: 12%" />
+					<col style="width: 12%" />
+					<col style="width: 12%" />
+					<col style="width: 30%" />
 					<thead>
 						<tr>
 							<th>时间</th>
@@ -88,11 +88,11 @@
 			<div class="panel-body" id="form1" style="overflow:auto;height:75%;width:100%">
 				<div class="table-responsive">
 					<table class="table grid">
-						<col style="width: 25%" />
-						<col style="width: 10%" />
-						<col style="width: 10%" />
-						<col style="width: 10%" />
-						<col style="width: 35%" />
+						<col style="width: 30%" />
+						<col style="width: 12%" />
+						<col style="width: 12%" />
+						<col style="width: 12%" />
+						<col style="width: 30%" />
 						<tbody id="form1_body"></tbody>
 					</table>
 				</div>
@@ -105,7 +105,7 @@
 		<div class="panel panel-warning" style="height:100%;width:100%"
 			id="table2">
 			<div class="panel-heading" id="heading">
-				数据交换内容
+				卫星数据交换内容
 				<button type="button" class="pull-right btn btn-sm btn-default"
 					id="table2_fullScreen">
 					<span class="glyphicon glyphicon-resize-full"></span>全屏显示

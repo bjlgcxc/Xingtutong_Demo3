@@ -27,7 +27,7 @@ function update_table1() {
 				pauseOnHover : false,
 				navigation : false,
 				direction : 'down',
-				newsTickerInterval : 50000000,
+				newsTickerInterval : 5000 + Math.round(5000),
 				onToDo : function() {
 					//console.log(this);
 				}
@@ -165,7 +165,7 @@ function getDateRateForNext24Hours() {//get time from now to the next 24 hours
 
 
 function update_viewer(){//get data from API for viewer
-	/*var date = getDateRateForNext24Hours();
+	var date = getDateRateForNext24Hours();
 	var url = "CZML/getCzmlDataSource?" + date;
 	$.ajax({
 		type : "get",
@@ -179,7 +179,7 @@ function update_viewer(){//get data from API for viewer
 			viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
 			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); 
 		}
-	});*/
+	});
 }
 
 
