@@ -51819,7 +51819,7 @@
 			var t = this._mode;
 			if (t === b.MORPHING && this._scene.completeMorph(), t === b.SCENE2D)
 				this.flyTo({
-					destination : Cesium.Cartesian3.fromDegrees(95.3,0,50000000.0),
+					destination : w.MAX_VALUE,
 					duration : e,
 					endTransform : _.IDENTITY
 				});
@@ -69562,7 +69562,7 @@
 			this._command = c(function () {
 					i._scene.camera.flyHome(i._duration)
 				}),
-			this.tooltip = "View Home",
+			this.tooltip = "查看主页",
 			u.track(this, ["tooltip"])
 		}
 		return r(h.prototype, {
@@ -69593,11 +69593,21 @@
 			e = o(e);
 			var r = new a(t, i);
 			r._svgPath = "M14,4l-10,8.75h20l-4.25-3.7188v-4.6562h-2.812v2.1875l-2.938-2.5625zm-7.0938,9.906v10.094h14.094v-10.094h-14.094zm2.1876,2.313h3.3122v4.25h-3.3122v-4.25zm5.8442,1.281h3.406v6.438h-3.406v-6.438z";
+			
+			var l = document.createElement("input");
+			l.type = "text",
+			l.setAttribute("value", "Home"),
+			l.setAttribute("style","background:rgba(0,0,0,0);color:#fff;width:80px;height:32px;border:1px solid #444;padding:5px 12px;margin-right:0px;border-right:0px"),
+			l.setAttribute("disabled","disabled"),
+			
+			e.appendChild(l);
+			
 			var s = document.createElement("button");
 			s.type = "button",
-			s.className = "cesium-button cesium-toolbar-button cesium-home-button",
+			s.className = "cesium-button cesium-toolbar-button",
 			s.setAttribute("data-bind", "attr: { title: tooltip },click: command,cesiumSvgPath: { path: _svgPath, width: 28, height: 28 }"),
-			e.appendChild(s),
+			e.appendChild(s);
+			
 			n.applyBindings(r, s),
 			this._container = e,
 			this._viewModel = r,

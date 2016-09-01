@@ -25,7 +25,7 @@
 </head>
 
 <body style="zoom:1">
-	<div style="margin:2px 0;">
+	<div>
 		<input id="Token" type="hidden" name="Token" value="" />
 	</div>
 	<table id="order"></table>
@@ -38,7 +38,7 @@
 		$("#order").datagrid({
 			iconCls:'icon-edit',
 			fit: true, 
-			pageSize: 20,//每页显示的记录条数，默认为10  
+			pageSize: 10,//每页显示的记录条数，默认为10  
 		    style:{padding:'8 8 10 8'},                 
 	        singleSelect:true,  
 	        method:'get',
@@ -57,6 +57,7 @@
 	        loadMsg:'数据加载中请稍后……',  
 	        pagination: true,  
 	        rownumbers: true,     
+	        title:"北斗短报文收发记录",
 	        columns:[[  
 	                   {field:'satellitenumber',title:'卫星编号',align:'center',width:60},
 		               {field:'deltan',title:'平近点角速度修正值',align: 'center',width: 120,},  
@@ -76,7 +77,7 @@
 			});
 			var p = $("#order").datagrid("getPager");  
 		       $(p).pagination({  
-		    	pageSize: 20,//每页显示的记录条数，默认为10      	 	
+		    	pageSize: 10,//每页显示的记录条数，默认为10      	 	
 		   	    pageList: [10,20,30,40,50],//可以设置每页记录条数的列表	        
 		   	    beforePageText: '第',//页数文本框前显示的汉字  
 		        afterPageText: '页    共 {pages} 页',  
