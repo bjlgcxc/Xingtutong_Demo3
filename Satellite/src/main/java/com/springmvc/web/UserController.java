@@ -42,21 +42,19 @@ public class UserController{
             userService.updateUserInfo(user);
             userService.saveLoginLog(user);
             request.getSession().setAttribute("user", userName);
-            request.getSession().setAttribute("loginState", "login");
 		}
 		
 		return jsonObj;
 	}
 	
-	
+
 	/*
 	 * 登录注销
 	 */
     @RequestMapping("/doLogout")
     public String logout(HttpSession session) {
         session.removeAttribute("user");
-        session.invalidate();
-        return "login";
+        return "index";
     }
     
     
@@ -81,7 +79,7 @@ public class UserController{
     /*
      * 修改密码
      */
-    @RequestMapping(value="/changePsw")
+    @RequestMapping(value="/register")
     public void changePassword(@RequestParam String userName,@RequestParam String password){
     	User user = userService.findByUserName(userName);
     	user.setPassword(password);

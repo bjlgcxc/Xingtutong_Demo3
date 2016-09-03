@@ -21,10 +21,8 @@ public class HttpUtils {
 		connection.setUseCaches(false);
 		connection.setInstanceFollowRedirects(true);
 		connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");  
-		connection.setConnectTimeout(3000);
-		connection.setReadTimeout(5000);
 		connection.connect();
-		
+
 		// POST请求
 		DataOutputStream out = new DataOutputStream(connection.getOutputStream());
 		out.write(josnObj.toString().getBytes("UTF-8"));
@@ -43,17 +41,18 @@ public class HttpUtils {
         String []tmp = tmpString.split(",");
         String []tmp1 = tmp[1].split(":");
         String []tmp2 = tmp1[1].split("\"");
+        System.out.println(tmp2[1]);
+        
         reader.close();
 		
         //断开连接
 		connection.disconnect();
-		
 		if(tmp2[1].isEmpty()){
-			//success
+			System.out.println("success");
         	return 1;
         }
 		else {
-			//error
+			System.out.println("send faield");
 			return 0;
 		}
 	}

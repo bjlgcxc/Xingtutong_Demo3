@@ -25,8 +25,6 @@ public class Message {
 	
 	private String content;     //content
 	
-	private String contentType; //content-type
-	
 	private long time;          //time
 	
 	public long getId() {
@@ -41,8 +39,6 @@ public class Message {
 	public void setType(int type) {
 		this.type = type;
 	}
-	
-	
 	public String getFrom() {
 		return from;
 	}
@@ -60,12 +56,6 @@ public class Message {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getContentType() {
-		return contentType;
-	}
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
 	}
 	public long getTime() {
 		return time;

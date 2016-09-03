@@ -160,21 +160,14 @@
 			var item;
 			var j;
 			for(j = 0 ;j<dataNum;j++){
-				var x = data[j+1].position.cartesian[4*i+1];
-				var y = data[j+1].position.cartesian[4*i+2];
-				var z = data[j+1].position.cartesian[4*i+3];
+				var x = data[j+1].position.cartesian[4*i+1] - std_x;
+				var y = data[j+1].position.cartesian[4*i+2] - std_y;
+				var z = data[j+1].position.cartesian[4*i+3] - std_z;
 				var tmp_arccos = (x*std_x+y*std_y+z*std_z)/(Math.sqrt(x*x+y*y+z*z)*Math.sqrt(std_x*std_x+std_y*std_y+std_z*std_z));
-				var tmpnum;
-					if(j==0 || j==1 || j==3 || j==8 || j==12 || j==19){
+				if(tmp_arccos > 0){
 					item = {"type":(j+1),"num":satName[j], "y":y/12712156/4*RADIUS,"x":x/12712156/4*RADIUS};
 					drawData.push(item);
 				}
-				else if(tmp_arccos >= 0.1 ){
-					item = {"type":(j+1),"num":satName[j], "y":y/12712156/4*RADIUS,"x":x/12712156/4*RADIUS};
-					drawData.push(item);
-				}
-				
-				
 			}	
 			if(drawData.length >= 8){
 				console.log(drawData.length);

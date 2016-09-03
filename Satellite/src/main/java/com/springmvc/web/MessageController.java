@@ -2,19 +2,25 @@ package com.springmvc.web;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.springmvc.entity.Message;
 import com.springmvc.service.MessageService;
+import com.springmvc.utils.DateJsonValueProcessor;
 import com.springmvc.utils.HttpUtils;
 import com.springmvc.utils.MyWebSocketHandler;
 
@@ -23,8 +29,8 @@ import com.springmvc.utils.MyWebSocketHandler;
 public class MessageController {
 	
 	public static final Log log = LogFactory.getLog(MessageController.class);
-	public static String url = "";   //指挥机发送消息的接口
-	public static String ICID = "";  //指挥机ID
+	public static String url = ""; 
+	public static String ICID = "";
 	
 	@Autowired
 	MessageService messageService;
@@ -38,41 +44,19 @@ public class MessageController {
 	@ResponseBody
 	@RequestMapping(value="/sayHello")
 	public JSONObject sayHello(@RequestBody JSONObject jsonObj) throws IOException{
-		
-		if(jsonObj.containsKey("url"))
-			url = jsonObj.getString("url");
-		
+		url = jsonObj.getString("url");
 		JSONObject json = new JSONObject();
 		//send
-		try{
-			int res = HttpUtils.doPost(url + "/sayHello",json);
-			if(res==1){
-				json.put("ok",true);
-				json.put("errorMsg", "");
-				log.info("get valid url for message sending");
-			}
-			else{
-				json.put("ok", false);
-				json.put("errorMsg",URLDecoder.decode("连接指挥机服务器失败","utf-8"));
-			}
+		int res = HttpUtils.doPost(url + "/sayHello",json);
+		if(res==1){
+			json.put("ok",true);
 		}
-		catch(Exception e){
+		else{
 			json.put("ok", false);
-			json.put("errorMsg", URLDecoder.decode("连接指挥机服务器失败","utf-8"));
 		}
 		
+		log.info("get url for message sending");
 		return json;
-	}
-	
-	
-	/*
-	 * 指挥机连接断开
-	 */
-	@ResponseBody
-	@RequestMapping(value="/disConnect")
-	public void disConnect(){
-		ICID = "";
-		log.info("断开指挥机的连接");
 	}
 	
 	
@@ -102,8 +86,11 @@ public class MessageController {
 	public JSONObject saveMessage(@RequestBody JSONArray jsonArray) throws IOException{
 		//save
 		List<Message> messageList = JSONArray.toList(jsonArray, Message.class);
+		for(Message message:messageList){
+			message.setTo(ICID);
+		}
 		messageService.saveMessage(messageList);
-		log.info("receive message from " + messageList.get(0).getFrom() + ",message：" + messageList.get(0).getContent());
+		log.info("save message：" + messageList.get(0).getContent());
 		//inform 
 		websocket.sendMessage();
 		//return
@@ -120,44 +107,27 @@ public class MessageController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/sendMessage")
-	public JSONObject sendMessage(Message message,HttpServletRequest request) throws IOException{
+	public int sendMessage(Message message,HttpServletRequest request) throws IOException{
 		
-		JSONObject msg = new JSONObject();
+		message.setType(1);
+		message.setFrom(ICID);
+		message.setTime(System.currentTimeMillis());
+		message.setContent(URLDecoder.decode(message.getContent(),"utf-8"));
 		
-		if(ICID.equals("")){
-			msg.put("ok", false);
-			msg.put("errorMsg", "指挥机未连接");
+		//send
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("targetID",message.getTo());
+		jsonObj.put("message",message.getContent());
+		int res = HttpUtils.doPost(url + "/sendMessage",jsonObj);
+		//save
+		if(res == 1){
+			messageService.saveMessage(message);
+			log.info("send message：" + message.getContent());
+			return 1;
 		}
 		else{
-			message.setType(1);
-			message.setFrom(ICID);
-			message.setTime(System.currentTimeMillis());
-			message.setContent(URLDecoder.decode(message.getContent(),"utf-8"));
-			
-			JSONObject jsonObj = new JSONObject();
-			jsonObj.put("targetID",message.getTo());
-			jsonObj.put("message",message.getContent());	
-			try{
-				//send
-				int res = HttpUtils.doPost(url + "/sendMessage",jsonObj);
-				//save
-				if(res == 1){
-					messageService.saveMessage(message);
-					msg.put("ok", true);
-					log.info("send message to " + ICID + ",message：" + message.getContent());
-				}
-				else{
-					msg.put("ok",false);
-					msg.put("errorMsg", "指挥机连接超时");
-				}
-			}
-			catch(Exception e){
-				msg.put("ok",false);
-				msg.put("errorMsg", "指挥机连接超时");
-			}
+			return 0;
 		}
-		
-		return msg;
 	}
 	
 	
@@ -167,8 +137,37 @@ public class MessageController {
 	@ResponseBody
 	@RequestMapping(value="/getAllMessage")
 	public JSONArray getMessage(){
-		List<Message> messageList = messageService.getAllMessage();	
+		System.out.println("get data for table2");
+		List<Message> messageList = messageService.getAllMessage();
 		return JSONArray.fromObject(messageList);
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value="/getPageMessage")
+	public JSONObject getPageMessage(@RequestParam long rows,@RequestParam long page){
+		Long total = 0L;
+		JSONObject jsonObj = new JSONObject();
+		total = messageService.findCount();
+		System.out.println("total:"+total);
+		jsonObj.put("total", total);
+		
+		JsonConfig config = new JsonConfig(); 
+		config.registerJsonValueProcessor(Date.class, new DateJsonValueProcessor());  
+		List<Message> data = messageService.findAll((page-1)*rows, rows);
+		jsonObj.put("rows", JSONArray.fromObject(data,config));
+		System.out.println(jsonObj);
+		return jsonObj;
+	}
+	
+	/*
+	 *  获取最新几条短消息(接收、发送)
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getRecentMessage")
+	public JSONArray getRecentMessage(@RequestParam int limit){
+		List<Message> messageList = messageService.getRecentMessage(limit);
+		return JSONArray.fromObject(messageList);
+	}
+	
 }

@@ -1,94 +1,109 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>html5绘制天空图</title>
-	<link href="css/sb-admin-2.css" rel="stylesheet">
+<meta charset="utf-8">
+<title>html5绘制天空图</title>
+<link href="css/sb-admin-2.css" rel="stylesheet">
 </head>
 
-<body style="zoom:1" >
-<div style="float:left"> 
-	<input class="knob" data-cursor=true data-skin="tron" data-ticks="8" data-angleOffset="0"  data-width="100" value="1">
-</div>
-<center><canvas id="skyPic"></canvas></center>
+<body style="zoom:1">
+	<div style="float:left">
+		<input class="knob" data-cursor=true data-skin="tron" data-ticks="8"
+			data-angleOffset="0" data-width="100" value="1">
+	</div>
+	<center>
+		<canvas id="skyPic"></canvas>
+	</center>
+	</br></br>
+	<div style="widht:30%"><font color="white" size="5px" id="text">注:点击卫星查看信息</font></div>
+	<script src="js/jquery.min.js"></script>
+	<script>
+		$(function() {
+			// Dial logic
+			var Dial = function(c, opt) {
+				var v = null, ctx = c[0].getContext("2d"), PI2 = 2 * Math.PI, mx, my, x, y, self = this;
+				this.onChange = function() {
+				};
+				this.onCancel = function() {
+				};
+				this.onRelease = function() {
+				};
 
-<script src="js/jquery.min.js"></script>
-<script>
-	$(function () {
-		// Dial logic
-		var Dial = function(c, opt) {
-		var v = null, ctx = c[0].getContext("2d"), PI2 = 2 * Math.PI, mx, my, x, y, self = this;
-		this.onChange = function() {
-		};
-		this.onCancel = function() {
-		};
-		this.onRelease = function() {
-		};
-
-		this.val = function(nv) {
-			if (null != nv) {
-				opt.stopper&& (nv = Math.max(Math.min(nv, opt.max),opt.min));
-				v = nv;
-				this.onChange(nv);
-				this.draw(nv);
-			} else {
-				var b, a;
-				b = a = Math.atan2(mx - x, -(my - y - opt.width / 2))- opt.angleOffset;
-				(a < 0) && (b = a + PI2);
-				nv = Math.round(b * (opt.max - opt.min) / PI2) + opt.min;
-					return (nv > opt.max) ? opt.max : nv;
-				}
-			};
-
-			this.change = function(nv) {
-				opt.stopper && (nv = Math.max(Math.min(nv, opt.max), opt.min));
-				this.onChange(nv);
-				this.draw(nv);
-			};
-
-			this.angle = function(nv) {
-				return (nv - opt.min) * PI2 / (opt.max - opt.min);
-			};
-
-			this.draw = function(nv) {
-				var a = this.angle(nv) // Angle
-				, sa = 1.5 * Math.PI + opt.angleOffset // Previous start angle
-				, sat = sa // Start angle
-				, ea = sa + this.angle(v) // Previous end angle
-				, eat = sat + a // End angle
-				, r = opt.width / 2 // Radius
-				, lw = r * opt.thickness // Line width
-				, cgcolor = Dial.getCgColor(opt.cgColor), tick;
-
-				ctx.clearRect(0, 0, opt.width, opt.width);
-				ctx.lineWidth = lw;
-
-				// Hook draw
-				if (opt.draw(a, v, opt, ctx)) {
-					return;
-				}
-
-				for (tick = 0; tick < opt.ticks; tick++) {
-					ctx.beginPath();
-					if (a > (((2 * Math.PI) / opt.ticks) * tick) && opt.tickColorizeValues) {
-						ctx.strokeStyle = opt.fgColor;
+				this.val = function(nv) {
+					if (null != nv) {
+						opt.stopper
+								&& (nv = Math.max(Math.min(nv, opt.max),
+										opt.min));
+						v = nv;
+						this.onChange(nv);
+						this.draw(nv);
 					} else {
-						ctx.strokeStyle = opt.tickColor;
+						var b, a;
+						b = a = Math.atan2(mx - x, -(my - y - opt.width / 2))
+								- opt.angleOffset;
+						(a < 0) && (b = a + PI2);
+						nv = Math.round(b * (opt.max - opt.min) / PI2)
+								+ opt.min;
+						return (nv > opt.max) ? opt.max : nv;
+					}
+				};
+
+				this.change = function(nv) {
+					opt.stopper
+							&& (nv = Math.max(Math.min(nv, opt.max), opt.min));
+					this.onChange(nv);
+					this.draw(nv);
+				};
+
+				this.angle = function(nv) {
+					return (nv - opt.min) * PI2 / (opt.max - opt.min);
+				};
+
+				this.draw = function(nv) {
+					var a = this.angle(nv) // Angle
+					, sa = 1.5 * Math.PI + opt.angleOffset // Previous start angle
+					, sat = sa // Start angle
+					, ea = sa + this.angle(v) // Previous end angle
+					, eat = sat + a // End angle
+					, r = opt.width / 2 // Radius
+					, lw = r * opt.thickness // Line width
+					, cgcolor = Dial.getCgColor(opt.cgColor), tick;
+
+					ctx.clearRect(0, 0, opt.width, opt.width);
+					ctx.lineWidth = lw;
+
+					// Hook draw
+					if (opt.draw(a, v, opt, ctx)) {
+						return;
 					}
 
-					var tick_sa = (((2 * Math.PI) / opt.ticks) * tick) - (0.5 * Math.PI);
-					ctx.arc(r, r, r - lw - opt.tickLength, tick_sa, tick_sa + opt.tickWidth, false);
-					ctx.stroke();
-				}
+					for (tick = 0; tick < opt.ticks; tick++) {
+						ctx.beginPath();
+						if (a > (((2 * Math.PI) / opt.ticks) * tick)
+								&& opt.tickColorizeValues) {
+							ctx.strokeStyle = opt.fgColor;
+						} else {
+							ctx.strokeStyle = opt.tickColor;
+						}
 
-				opt.cursor && (sa = ea - 0.3) && (ea = ea + 0.3) && (sat = eat - 0.3) && (eat = eat + 0.3);
-				switch (opt.skin) {
+						var tick_sa = (((2 * Math.PI) / opt.ticks) * tick)
+								- (0.5 * Math.PI);
+						ctx.arc(r, r, r - lw - opt.tickLength, tick_sa, tick_sa
+								+ opt.tickWidth, false);
+						ctx.stroke();
+					}
+
+					opt.cursor && (sa = ea - 0.3) && (ea = ea + 0.3)
+							&& (sat = eat - 0.3) && (eat = eat + 0.3);
+					switch (opt.skin) {
 					case 'default':
 						ctx.beginPath();
 						ctx.strokeStyle = opt.bgColor;
@@ -163,23 +178,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 					this.capture(e);
 
-					$doc.bind("mousemove.dial touchmove.dial", function(e) {
-						self.capture(e);
-					}).bind(
-						// Escape
-						"keyup.dial",
-						function(e) {
-							if (e.keyCode === 27) {
-								$doc.unbind("mouseup.dial mousemove.dial keyup.dial");
-								self.cancel();
-							}
-						}).bind(
-							"mouseup.dial touchend.dial",
-							function(e) {
-								$doc.unbind('mousemove.dial touchmove.dial mouseup.dial touchend.dial keyup.dial');
-								self.val(self.val());
-								self.onRelease(v);
-						});
+					$doc
+							.bind("mousemove.dial touchmove.dial", function(e) {
+								self.capture(e);
+							})
+							.bind(
+									// Escape
+									"keyup.dial",
+									function(e) {
+										if (e.keyCode === 27) {
+											$doc
+													.unbind("mouseup.dial mousemove.dial keyup.dial");
+											self.cancel();
+										}
+									})
+							.bind(
+									"mouseup.dial touchend.dial",
+									function(e) {
+										$doc
+												.unbind('mousemove.dial touchmove.dial mouseup.dial touchend.dial keyup.dial');
+										self.val(self.val());
+										self.onRelease(v);
+									});
 				};
 			};
 
@@ -194,94 +214,96 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			// jQuery plugin
 			$.fn.knob = $.fn.dial = function(gopt) {
-				return this.each(
-					function() {
-						var $this = $(this), opt;
-						if ($this.data('dialed')) {
-							return $this;
-						}
-						$this.data('dialed', true);
-							opt = $.extend(
-								{
-										// Config
-										'min' : $this
-												.data('min') || 0,
-										'max' : $this
-												.data('max') || 100,
-										'stopper' : true,
-										'readOnly' : $this
-												.data('readonly')
+				return this
+						.each(
+								function() {
+									var $this = $(this), opt;
+									if ($this.data('dialed')) {
+										return $this;
+									}
+									$this.data('dialed', true);
+									opt = $
+											.extend(
+													{
+														// Config
+														'min' : $this
+																.data('min') || 0,
+														'max' : $this
+																.data('max') || 100,
+														'stopper' : true,
+														'readOnly' : $this
+																.data('readonly')
 
-										// UI
-										,
-										'cursor' : $this
-												.data('cursor'),
-										'thickness' : $this
-												.data('thickness') || 0.35,
-										'width' : $this
-												.data('width') || 200,
-										'displayInput' : $this
-												.data('displayinput') == null
-												|| $this
-														.data('displayinput'),
-										'displayPrevious' : $this
-												.data('displayprevious'),
-										'fgColor' : $this
-											.data('fgcolor')
-												|| '#FFFFFF',
-										'cgColor' : $this
-												.data('cgcolor')
-												|| $this
-														.data('fgcolor')
-												|| '#FFFFFF',
-										'bgColor' : $this
-												.data('bgcolor')
-												|| '#FFFFFF',
-										'tickColor' : $this
-												.data('tickColor')
-												|| $this
-														.data('fgcolor')
-												|| '#FFFFFF',
-										'ticks' : $this
-												.data('ticks') || 0,
-										'tickLength' : $this
-												.data('tickLength') || 0,
-										'tickWidth' : $this
-												.data('tickWidth') || 0.02,
-										'tickColorizeValues' : $this
-												.data('tickColorizeValues') || true,
-										'skin' : $this
-												.data('skin')
-												|| 'default',
-										'angleOffset' : degreeToRadians($this
-												.data('angleoffset'))
+														// UI
+														,
+														'cursor' : $this
+																.data('cursor'),
+														'thickness' : $this
+																.data('thickness') || 0.35,
+														'width' : $this
+																.data('width') || 200,
+														'displayInput' : $this
+																.data('displayinput') == null
+																|| $this
+																		.data('displayinput'),
+														'displayPrevious' : $this
+																.data('displayprevious'),
+														'fgColor' : $this
+																.data('fgcolor')
+																|| '#FFFFFF',
+														'cgColor' : $this
+																.data('cgcolor')
+																|| $this
+																		.data('fgcolor')
+																|| '#FFFFFF',
+														'bgColor' : $this
+																.data('bgcolor')
+																|| '#FFFFFF',
+														'tickColor' : $this
+																.data('tickColor')
+																|| $this
+																		.data('fgcolor')
+																|| '#FFFFFF',
+														'ticks' : $this
+																.data('ticks') || 0,
+														'tickLength' : $this
+																.data('tickLength') || 0,
+														'tickWidth' : $this
+																.data('tickWidth') || 0.02,
+														'tickColorizeValues' : $this
+																.data('tickColorizeValues') || true,
+														'skin' : $this
+																.data('skin')
+																|| 'default',
+														'angleOffset' : degreeToRadians($this
+																.data('angleoffset'))
 
-										// Hooks
-										,
-										'draw' :
-										/**
-										 * @param int a angle
-										 * @param int v current value
-										 * @param array opt plugin options
-										 * @param context ctx Canvas context 2d
-										 * @return bool true:bypass default draw methode
-										 */
-										function(a, v, opt, ctx) {
-										},
-										'change' :
-										/**
-										 * @param int v Current value
-										 */
-										function(v) {
-										},
-										'release' :
-										/**
-										 * @param int v Current value
-										 * @param jQuery ipt Input
-										 */
-										function(v, ipt) {
-										}
-									}, gopt);
+														// Hooks
+														,
+														'draw' :
+														/**
+														 * @param int a angle
+														 * @param int v current value
+														 * @param array opt plugin options
+														 * @param context ctx Canvas context 2d
+														 * @return bool true:bypass default draw methode
+														 */
+														function(a, v, opt, ctx) {
+														},
+														'change' :
+														/**
+														 * @param int v Current value
+														 */
+														function(v) {
+														},
+														'release' :
+														/**
+														 * @param int v Current value
+														 * @param jQuery ipt Input
+														 */
+														function(v, ipt) {
+														}
+													}, gopt);
 
 									var c = $('<canvas width="' + opt.width + '" height="' + opt.width + '"></canvas>'), wd = $('<div style=width:' + opt.width + 'px;display:inline;"></div>'), k, vl = $this
 											.val(), initStyle = function() {
@@ -573,7 +595,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//关键代码。求圆心坐标。coslen是求出来的该点到圆心的距离。
 
 				y = drawData[i].x;
-				x = drawData[i].y;
+				x = drawData[i].y
 
 				cxt.arc(x, -y, 14, 0, Math.PI * 2, false);//在坐标点绘制圆
 				cxt.fill();
@@ -583,6 +605,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				cxt.fillText(drawData[i].num, x, -y);//在坐标点写文字卫星号
 			}
 			cxt.restore();
+			cxt.save();
+			saveDrawingSurface();
 		}
 		function getRandom(n) {
 			return Math.floor(Math.random() * n + 1);
@@ -593,22 +617,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var item;
 			var j;
 			for (j = 0; j < dataNum; j++) {
-				var x = data[j + 1].position.cartesian[4 * i + 1];
-				var y = data[j + 1].position.cartesian[4 * i + 2];
-				var z = data[j + 1].position.cartesian[4 * i + 3];
+				var x = data[j + 1].position.cartesian[4 * i + 1] - std_x;
+				var y = data[j + 1].position.cartesian[4 * i + 2] - std_y;
+				var z = data[j + 1].position.cartesian[4 * i + 3] - std_z;
 				var tmp_arccos = (x * std_x + y * std_y + z * std_z)
 						/ (Math.sqrt(x * x + y * y + z * z) * Math.sqrt(std_x
 								* std_x + std_y * std_y + std_z * std_z));
-				var tmpnum;
-				if (j == 0 || j == 1 || j == 3 || j == 8 || j == 12 || j == 19) {
-					item = {
-						"type" : (j + 1),
-						"num" : satName[j],
-						"y" : y / 12712156 / 4 * RADIUS,
-						"x" : x / 12712156 / 4 * RADIUS
-					};
-					drawData.push(item);
-				} else if (tmp_arccos >= 0.1) {
+				if (tmp_arccos > 0) {
 					item = {
 						"type" : (j + 1),
 						"num" : satName[j],
@@ -654,11 +669,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			drawSkyPosition(drawData, cxt);
 		}
 
+		//保存当前绘图表面数据
+		function saveDrawingSurface() {
+			//从上下文中获取绘图表面数据
+			drawingSurfaceImageData = cxt.getImageData(0, 0, skyPic.width,
+					skyPic.height);
+		}
+
+		//还原当前绘图表面
+		function restoreDrawingSurface() {
+			//将绘图表面数据还原给上下文
+			cxt.putImageData(drawingSurfaceImageData, 0, 0);
+		}
+
 		//定时刷新
 		var drawData = [];
+		var drawingSurfaceImageData;
 		var satName = [ "G1", "G3", "I1", "G4", "I2", "I3", "I4", "I5", "G5",
 				"M3", "M4", "M6", "G6", "1S", "M1", "M2", "2S", "3S", "I6",
 				"G7" ];
+		var satDescription = [ 
+				"G1,长征三号丙,发射时间为2010年1月17日",
+				"G3,长征三号丙,发射时间为2010年6月2日", 
+				"I1,长征三号甲,发射时间为2010年8月1日05时30分",
+				"G4,长征三号丙,发射时间为2010年11月1日00时26分",
+				"I2,长征三号甲,发射时间为2010年12月18日04时20分",
+				"I3,长征三号甲,发射时间为2011年4月10日04时47分",
+				"I4,长征三号甲,发射时间为2011年7月27日05时44分",
+				"I5,长征三号甲,发射时间为2011年12月2日05时07分", 
+				"G5,长征三号丙,发射时间为2012年02月25日",
+				"M3,长征三号乙,发射时间为", 
+				"M4,长征三号乙,发射时间为2012年04月30日",
+				"M6,长征三号乙,发射时间为2012年09月19日", 
+				"G6,长征三号丙,发射时间为2012年10月25日",
+				"1S,发射时间为", 
+				"M1,发射时间为", 
+				"M2,发射时间为", 
+				"2S,发射时间为", 
+				"3S,发射时间为",
+				"I6,发射时间为", 
+				"G7,长征三号丙,发射时间为" 
+		];
 		var cxt = document.getElementById('skyPic').getContext("2d");
 		var imageData;
 		var data;
@@ -671,6 +722,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var sky2interval = setInterval(function() {
 			loop();
 		}, 3000000);
-		
+
+		function windowToCanvas(x, y) {
+			//获取canvas元素的边距对象
+			var bbox = skyPic.getBoundingClientRect();
+			//返回一个坐标对象
+			//类似json的一种写法
+			return {
+				x : x - bbox.left * (skyPic.width / bbox.width),
+				y : y - bbox.top * (skyPic.height / bbox.height)
+			};
+		}
+		//事件处理-----------------------------------------------------
+		skyPic.onmousedown = function(e) {
+
+			var loc = windowToCanvas(e.clientX, e.clientY);
+			var mousedownX = loc.x - skyPic.width / 2, mousedownY = skyPic.height
+					/ 2 - loc.y;
+			//alert(mousedownX+","+mousedownY);
+			var j;
+			var tmptime = i - 1;
+			var dataLen = drawData.length;
+			for ( var j = 0; j < dataLen; j++) {
+				var y = drawData[j].x;
+				var x = drawData[j].y;
+				if (Math.abs(mousedownX - x) < 10
+						&& Math.abs(mousedownY - y) < 10) {
+					var index = satName.indexOf(drawData[j].num);
+					//alert(satDescription[index]);
+					//restoreDrawingSurface();
+					//cxt.font = "20px Georgia";//设置字体
+					//cxt.fillStyle = "white";//设置颜色
+					//cxt.fillText(satDescription[index],0,10);//10，50是位置
+					//cxt.restore();
+					$("#text").html(satDescription[index]);
+				}
+
+			}
+
+		}
 	</script>
 </body>

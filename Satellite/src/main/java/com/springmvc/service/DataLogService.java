@@ -21,8 +21,11 @@ public class DataLogService {
 		return dataLogDao.find(limit);
 	}
 	
-	public List<DataLog> findAllDataLog(){
-		return dataLogDao.findAll();
+	public List<DataLog> findPage(long page,long row){
+		return dataLogDao.findPage(page, row);
 	}
-	
+
+	public long findCount(){
+		return dataLogDao.findCount();
+	}
 }

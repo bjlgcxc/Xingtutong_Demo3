@@ -1,120 +1,140 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	String sslbasePath = "https://" + request.getServerName() + ":8443"
+			+ path + "/";
 %>
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="">
+<base href="<%=basePath%>">
+<title>星途通云平台首页_北京星途通科技有限公司</title>
 
-	<link href="css/mybootstrap.min.css" rel="stylesheet">
-	<link href="css/sb-admin-2.css" rel="stylesheet">
-	<link href="css/dataTables.bootstrap.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="expires" content="0">
+
+<link rel="stylesheet" type="text/css" href="css/eplist/easyui.css">
+<link href="css/mybootstrap.min.css" rel="stylesheet">
+<link href="css/sb-admin-2.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/updatetable.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 
-<body>
-<div id="page-wrapper">
-	<div style="text-align:center;">
-		<h3>北斗短报文收发记录</h3>
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="dataTable_wrapper">
-						<table class="table table-bordered table-hover" id="dataTables-example" style="border:1px solid #ddd">
-							<thead>
-								<tr>								
-									<th>time</th>
-									<th>from</th>
-									<th>to</th>
-									<th>type</th>
-									<th>content</th>
-								</tr>
-							</thead>
-							<tbody id="table2_body_fullscreen">
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+<body style="zoom:1">
+	</br>
+	<div style="height:2%;">
+		<div>
+			<input id="Token" type="hidden" name="Token" value="" />
+			<div style="float:right;"><input type="checkbox" value="暂停数据动态刷新" id="close">暂停数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		</div>
 	</div>
-</div>
+	<div style="height:96%;width:100%">
+		<table id="order"></table>
+	</div>
+</body>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
-<script>
-   $(document).ready(function() {
-	   $.ajax({
-			type : "get",
-			dataType : "json",
-			url : "message/getAllMessage",
-			success : function(msg) { 
-				var str = "";
-				for(var i=msg.length-1;i>=0;i--){
-					str = str + "<tr>" +
-					"<td>" + GetDateTimeFormatStr(new Date(msg[i].time)) +"</td>"+
-					"<td>" + msg[i].from +"</td>"+
-					"<td>" + msg[i].to +"</td>";
-					if(msg[i].type == "0"){
-						str = str + "<td>receive</td>";		
-					}
-					else if(msg[i].type == "1"){
-						str = str + "<td>send</td>";			
-					}
-					str += "<td>" + msg[i].content +"</td>"+
-					"</tr>";
-				}
-				document.getElementById("table2_body_fullscreen").innerHTML = str;
-				$('#dataTables-example').DataTable({
-	               responsive: true,
-	               aaSorting: [[0, "desc"]]
-	       		});
+<script type="text/javascript">
+	//webSocke
+	var hostport = document.location.host;
+	var socketurl = 'ws://' + hostport + '/Satellite/webSocket';
+	var ws = new WebSocket(socketurl);
+	/* ws.onopen = function() { 
+		alert('webSocket connet');
+	};  */
+	ws.onmessage = function(event) {
+		if(false == $("#close").attr("checked"))
+			$("#order").datagrid('load');
+	};
+	ws.onerror = function() {
+		/* alert('webSocket连接失败'); */
+	};
+
+
+	$(function() {
+		document.body.style.zoom = document.body.clientWidth / 1366;
+		$("#order").datagrid({
+			iconCls : 'icon-edit',
+			fit : true,
+			pageSize : 20,//每页显示的记录条数，默认为10  
+			style : {
+				padding : '8 8 10 8'
 			},
-			error : function() {
-				alert("failed");
+			singleSelect : true,
+			method : 'get',
+			url : 'message/getPageMessage',
+			/* loadFilter:function(data){
+			if(data.rows.length==0){
+				slide("提示信息","没有数据信息");
+			}else{
+				return data;
 			}
+			},   */
+			onLoadError : function() {
+				slide("提示信息", "数据信息错误");
+				return;
+			},
+			loadMsg : '数据加载中请稍后……',
+			pagination : true,
+			rownumbers : true,
+			title : "北斗短报文收发记录",
+			columns : [ [ {
+				field : 'time',
+				title : '时间',
+				align : 'center',
+				width : 200,
+				formatter : function(value) {
+					return GetDateTimeFormatStr(new Date(value));
+				}
+			}, {
+				field : 'from',
+				title : '发送ID',
+				align : 'center',
+				width : 120,
+			}, {
+				field : 'to',
+				title : '接收ID',
+				align : 'center',
+				width : 110,
+			}, {
+				field : 'type',
+				title : '类型',
+				align : 'center',
+				width : 120,
+				formatter : function(value) {
+					if (value == "1") {
+						return "receive";
+					} else
+						return "send";
+				}
+			}, {
+				field : 'content',
+				title : '内容',
+				align : 'center',
+				width : 765,
+			},
+
+			] ],
+		});
+		var p = $("#order").datagrid("getPager");
+		$(p).pagination({
+			pageSize : 20,//每页显示的记录条数，默认为10      	 	
+			pageList : [ 10, 20, 30, 40, 50 ],//可以设置每页记录条数的列表	        
+			beforePageText : '第',//页数文本框前显示的汉字  
+			afterPageText : '页    共 {pages} 页',
+			displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录',
 		});
 	});
-
-	function GetDateTimeFormatStr(date) {
-		var seperator1 = "-";
-		var seperator2 = ":";
-		var month = date.getMonth() + 1;
-		var hours = date.getHours();
-		var minutes = date.getMinutes();
-		var strDate = date.getDate();
-		var seconds = date.getSeconds();
-		if (month >= 1 && month <= 9) {
-		    month = "0" + month;
-		}
-		if (strDate >= 0 && strDate <= 9) {
-		    strDate = "0" + strDate;
-		}
-		if(hours>=0 && hours<=9){
-			hours = "0" + hours;
-		}
-		if(minutes>=0 && minutes<=9){
-			minutes = "0" + minutes;
-		}
-		if(seconds>=0 && seconds<=9){
-			seconds = "0" + seconds;
-		}
-		var formatDate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-	            + " " + hours + seperator2 + minutes + seperator2 + seconds;
-		
-		return formatDate;
-	}
 </script>
 
-</body>
 </html>
+
+
+

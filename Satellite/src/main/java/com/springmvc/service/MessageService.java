@@ -27,4 +27,16 @@ public class MessageService {
 		return messageDao.findAll();
 	}
 	
+	public List<Message> getRecentMessage(int limit){
+		return messageDao.findSome(limit);
+	}
+	
+	public long findCount(){
+		return messageDao.findCount();
+	}
+	
+	public List<Message> findAll(long page,long row){
+		return messageDao.findAll(page, row);
+	}
+
 }

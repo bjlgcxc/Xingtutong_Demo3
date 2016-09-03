@@ -25,15 +25,35 @@
 </head>
 
 <body style="zoom:1">
-	<div>
-		<input id="Token" type="hidden" name="Token" value="" />
+	</br>
+	<div style="height:2%;">
+		<div>
+			<input id="Token" type="hidden" name="Token" value="" />
+			<div style="float:right;"><input type="checkbox" value="暂停数据动态刷新" id="close">暂停数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		</div>
 	</div>
-	<table id="order"></table>
+	<div style="height:96%;width:100%">
+		<table id="order"></table>
+	</div>
 </body>
 
 <script type="text/javascript">
-    
   $(function(){ 
+  	//webSocke
+	var hostport = document.location.host;
+	var socketurl = 'ws://' + hostport + '/Satellite/webSocket';
+	var ws = new WebSocket(socketurl);
+	/* ws.onopen = function() { 
+		alert('webSocket connet');
+	};  */
+	ws.onmessage = function(event) {
+		if(false == $("#close").attr("checked"))
+			$("#order").datagrid('load');
+	};
+	ws.onerror = function() {
+		/* alert('webSocket连接失败'); */
+	};
+  	
     document.body.style.zoom=document.body.clientWidth/1366;
 		$("#order").datagrid({
 			iconCls:'icon-edit',
@@ -57,7 +77,7 @@
 	        loadMsg:'数据加载中请稍后……',  
 	        pagination: true,  
 	        rownumbers: true,     
-	        title:"北斗短报文收发记录",
+	        title:"卫星数据交换内容",
 	        columns:[[  
 	                   {field:'satellitenumber',title:'卫星编号',align:'center',width:60},
 		               {field:'deltan',title:'平近点角速度修正值',align: 'center',width: 120,},  

@@ -3,10 +3,10 @@ function update_table1() {
 		type : "get",
 		dataType : "json",
 		async : false,
-		url : "datalog/getDataLog",
+		url : "datalog/getRecentDataLog",
 		success : function(msg) {
 			var str = "";
-			for ( var i = 0, j = 0; j < 20; i++, j++) {
+			for ( var i = 0, j = 0; j < msg.length; i++, j++) {
 				str = str + "<li class='news-item'>"
 						+ "dataFormat:" + msg[i].dataFormat
 						+ "|dataSize:" + msg[i].dataSize + "|type:"
@@ -14,10 +14,10 @@ function update_table1() {
 						+ "|time:" + msg[i].time;
 				if (msg[i].type == "1") {
 					str = str
-							+ "|<span style='color:green'>response</span></li>";
+							+ "|<span style='color:green'>request</span></li>";
 				} else {
 					str = str
-							+ "|<span style='color:red'>recieve</span></li>";
+							+ "|<span style='color:red'>response</span></li>";
 				}
 			}
 			document.getElementById("ul1").innerHTML = str;
@@ -27,7 +27,7 @@ function update_table1() {
 				pauseOnHover : false,
 				navigation : false,
 				direction : 'down',
-				newsTickerInterval : 5000 + Math.round(5000),
+				newsTickerInterval : 5000 + Math.random(5000),
 				onToDo : function() {
 					//console.log(this);
 				}
@@ -98,8 +98,7 @@ function update_table3(element,num) {//update table3
 				"<td>"+data[i].i0.toFixed(5) +"</td>"+
 				"<td>"+data[i].omega.toFixed(5) +"</td>"+
 				"<td>"+data[i].toe +"</td>"+
-					   "</tr>";
-					   
+					   "</tr>";	   
 			}
 			element.innerHTML = str;
 		},
@@ -172,12 +171,12 @@ function update_viewer(){//get data from API for viewer
 		dataType : "json",
 		url : url,
 		success : function(msg) {
-			viewer1.dataSources.add(Cesium.CzmlDataSource.load(msg));
-			viewer2.dataSources.add(Cesium.CzmlDataSource.load(msg)); 
+			/*viewer1.dataSources.add(Cesium.CzmlDataSource.load(msg));
+			viewer2.dataSources.add(Cesium.CzmlDataSource.load(msg)); */
 		},
-		error:function(){
+		error:function(){/*
 			viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
-			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); 
+			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); */
 		}
 	});
 }
