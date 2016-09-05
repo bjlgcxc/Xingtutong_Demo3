@@ -33,7 +33,7 @@
 	<div style="height:2%;">
 		<div>
 			<input id="Token" type="hidden" name="Token" value="" />
-			<div style="float:right;"><input type="checkbox" value="暂停数据动态刷新" id="close">暂停数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			<div style="float:right;"><input type="checkbox" value="数据动态刷新" id="pauseRefresh" checked="checked"/>数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
 		</div>
 	</div>
 	<div style="height:96%;width:100%">
@@ -50,13 +50,17 @@
 		alert('webSocket connet');
 	};  */
 	ws.onmessage = function(event) {
-		if(false == $("#close").attr("checked"))
+		if(refresh)
 			$("#order").datagrid('load');
 	};
 	ws.onerror = function() {
 		/* alert('webSocket连接失败'); */
 	};
-
+	
+	var refresh = true;
+  	$("#pauseRefresh").click(function(){
+  		refresh = !refresh;
+  	});
 
 	$(function() {
 		document.body.style.zoom = document.body.clientWidth / 1366;
@@ -81,7 +85,7 @@
 				slide("提示信息", "数据信息错误");
 				return;
 			},
-			loadMsg : '数据加载中请稍后……',
+			loadMsg :null,
 			pagination : true,
 			rownumbers : true,
 			title : "北斗短报文收发记录",

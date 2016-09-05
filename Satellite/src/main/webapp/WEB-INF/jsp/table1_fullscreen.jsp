@@ -53,7 +53,7 @@
 					<font size="+1"><div id="clock_iframe"></div> </font>
 				</center> </span>
 		</div>
-		<div style="float:right;"><input type="checkbox" value="暂停数据动态刷新" id="close">暂停数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		<div style="float:right;"><input type="checkbox" value="暂停数据动态刷新" id="pauseRefresh"/>暂停数据动态刷新&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	</div>
 	<div id="table" style="height:85%;width:100%">
 		<table id="order"></table>
@@ -70,13 +70,17 @@
 			alert('webSocket connet');
 		};  */
 		ws.onmessage = function(event) {
-			if(false == $("#close").attr("checked"))
+			if(refresh)
 				$("#order").datagrid('load');
 		};
 		ws.onerror = function() {
 			/* alert('webSocket连接失败'); */
 		};
 	
+		var refresh = true;
+	  	$("#pauseRefresh").click(function(){
+	  		refresh = !refresh;
+	  	});
 	
 		document.body.style.zoom = document.body.clientWidth / 1366;
 		startTime();

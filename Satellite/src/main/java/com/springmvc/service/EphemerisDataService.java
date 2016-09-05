@@ -33,4 +33,8 @@ public class EphemerisDataService {
 		return ephemerisDataDao.findEphemerisByDate(date);
 	}
 	
+	public void simulateEphemerisReceive(int number){
+		ephemerisDataDao.simulateEphemerisReceive(number);
+	}
+	
 }

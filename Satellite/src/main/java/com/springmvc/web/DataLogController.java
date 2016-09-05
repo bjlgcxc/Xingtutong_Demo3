@@ -3,6 +3,9 @@ package com.springmvc.web;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -63,12 +66,23 @@ public class DataLogController {
 	/*
 	 * 保存卫星数据接收日志
 	 */
-	@ResponseBody
 	@RequestMapping(value="/saveDataLog",method=RequestMethod.POST)
-	public void saveDataLog(DataLog dataLog) throws IOException{
+	public String saveDataLog(HttpServletRequest request,DataLog dataLog) throws IOException{
 		dataLogService.saveDataLog(dataLog);
 		//inform 
 		websocket.sendMessage();
+		
+		//simulate
+		String size = dataLog.getDataSize();
+		if(size.length()==0)
+			return null;
+		
+		int i = 0;
+		while(size.charAt(i)>='0' && size.charAt(i)<='9'){
+			i++;
+		}
+		int number = Integer.parseInt(size.substring(0, i));
+		return "redirect:/Data/simulateReceive?number=" + number;
 	}	
 	
 }

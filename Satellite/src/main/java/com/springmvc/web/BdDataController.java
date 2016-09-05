@@ -1,14 +1,14 @@
 package com.springmvc.web;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +21,7 @@ import com.springmvc.entity.EphemerisData;
 import com.springmvc.service.BdDescribeService;
 import com.springmvc.service.EphemerisDataService;
 import com.springmvc.utils.DateJsonValueProcessor;
+import com.springmvc.utils.MyWebSocketHandler;
 
 @Controller
 @RequestMapping("/Data")
@@ -30,7 +31,9 @@ public class BdDataController {
 	BdDescribeService bdDescribeService;
 	@Autowired
 	EphemerisDataService ephemerisDataService;
-
+	@Autowired
+	MyWebSocketHandler websocket;
+	
 	
 	/*
 	 * 获取卫星描述信息
@@ -112,6 +115,19 @@ public class BdDataController {
     	   rt = rt + rx+","+ry+","+bw+","+a[j]+",";
         }
         return rt; 
+	}
+
+	
+	/*
+	 * 模拟轨道信息获取接收
+	 */
+	@RequestMapping(value = "/simulateReceive",method = RequestMethod.GET)
+	public void simulateEphemerisReceive(HttpServletRequest request) throws IOException{
+		int number = Integer.parseInt(request.getParameter("number"));
+		ephemerisDataService.simulateEphemerisReceive(number);
+		
+		//inform 
+		websocket.sendMessage();
 	}
 	
 

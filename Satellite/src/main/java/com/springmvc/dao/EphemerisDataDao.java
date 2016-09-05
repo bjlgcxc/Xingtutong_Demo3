@@ -6,10 +6,13 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import com.springmvc.entity.BeidouData;
 import com.springmvc.entity.EphemerisData;
+
 
 @SuppressWarnings("unchecked")
 @Repository
@@ -22,7 +25,7 @@ public class EphemerisDataDao {
 	
 	public List<EphemerisData> findAll(long page,long row){
 		Session session = sessionFactory.openSession();
-		SQLQuery query = session.createSQLQuery("select * from ephemerisdata limit ?,?");
+		SQLQuery query = session.createSQLQuery("select * from ephemerisdata order by id desc limit ?,?");
 		query.setLong(0, page);
 		query.setLong(1, row);
 		query.addEntity(EphemerisData.class);
@@ -64,6 +67,25 @@ public class EphemerisDataDao {
 	public List<EphemerisData> findEphemerisByDate(Date date){
 		String hql = "from EphemerisData ed where ed.Epoch=?";
 		return (List<EphemerisData>) hibernateTemplate.find(hql,date);
+	}
+	
+	public void simulateEphemerisReceive(int number){
+		//1.response
+		Session session = hibernateTemplate.getSessionFactory().openSession();
+    	SQLQuery query = session.createSQLQuery("select * from beidoudata order by rand() limit ?");
+    	query.addEntity(BeidouData.class);
+    	query.setParameter(0, number);
+    	List<BeidouData> dataList = query.list();
+		session.close();
+		
+		EphemerisData copyData = new EphemerisData();
+		Date date = new Date(System.currentTimeMillis());
+		for(BeidouData data:dataList){
+			data.setID(null);
+			data.setEpoch(date);
+			BeanUtils.copyProperties(data,copyData);
+	    	hibernateTemplate.save(copyData);
+		}
 	}
 	
 }

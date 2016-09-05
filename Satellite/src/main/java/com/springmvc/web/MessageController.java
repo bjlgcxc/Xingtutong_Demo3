@@ -137,7 +137,6 @@ public class MessageController {
 	@ResponseBody
 	@RequestMapping(value="/getAllMessage")
 	public JSONArray getMessage(){
-		System.out.println("get data for table2");
 		List<Message> messageList = messageService.getAllMessage();
 		return JSONArray.fromObject(messageList);
 	}
