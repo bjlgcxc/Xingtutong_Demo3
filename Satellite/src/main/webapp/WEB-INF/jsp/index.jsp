@@ -22,8 +22,6 @@
 	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="css/roll/site.css" rel="stylesheet" type="text/css" />
 	<link href="css/scrollstyle.css" rel="stylesheet" type="text/css" />
-	
-	
 	<link rel="stylesheet" href="css/scroll/scroll.css">
 	<link rel="stylesheet" href="css/scroll/jquery.mCustomScrollbar.css">
 
@@ -50,10 +48,10 @@
     .grid th:first-child, .grid td:first-child {width: 148px;text-align: left;color: #fff;padding-left: 4px;}
 	
 	</style>
-
+	
 </head>
 
-<body onload="startTime()">
+<body onload="startTime()" style="overflow:-Scroll;overflow-x:hidden;overflow-y:hidden">
 	<%@ include file="nav.jsp"%>
 	<%@ include file="row1.jsp"%>
 	<%@ include file="row2.jsp"%>
@@ -120,9 +118,9 @@
 		ws.onmessage = function(event) {
 			update_table2();
 		};
-		ws.onerror = function() {
-			/* alert('webSocket连接失败'); */
-		};
+		/* ws.onerror = function() {
+			alert('webSocket连接失败'); 
+		}; */
 		
 		myresize();
 		var frame = document.getElementById("skyFrame");

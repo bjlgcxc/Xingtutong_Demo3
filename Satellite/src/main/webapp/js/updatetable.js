@@ -45,7 +45,7 @@ function update_table2(){//update table2
 	$.ajax({
 		type : "get",
 		dataType : "json",
-		url : "message/getAllMessage",
+		url : "message/getAllMessage?" + Math.random().toString(),
 		success : function(msg) { 
 			var str = "";
 			for(var i=msg.length-1;i >=0 ;i --){
@@ -174,8 +174,8 @@ function update_viewer(){//get data from API for viewer
 			/*viewer1.dataSources.add(Cesium.CzmlDataSource.load(msg));
 			viewer2.dataSources.add(Cesium.CzmlDataSource.load(msg)); */
 		},
-		error:function(){/*
-			viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
+		error:function(){
+			/*viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
 			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); */
 		}
 	});

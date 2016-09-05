@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import com.springmvc.entity.BeidouData;
 import com.springmvc.entity.EphemerisData;
 
 
@@ -73,14 +72,14 @@ public class EphemerisDataDao {
 		//1.response
 		Session session = hibernateTemplate.getSessionFactory().openSession();
     	SQLQuery query = session.createSQLQuery("select * from beidoudata order by rand() limit ?");
-    	query.addEntity(BeidouData.class);
+    	query.addEntity(EphemerisData.class);
     	query.setParameter(0, number);
-    	List<BeidouData> dataList = query.list();
+    	List<EphemerisData> dataList = query.list();
 		session.close();
 		
 		EphemerisData copyData = new EphemerisData();
 		Date date = new Date(System.currentTimeMillis());
-		for(BeidouData data:dataList){
+		for(EphemerisData data:dataList){
 			data.setID(null);
 			data.setEpoch(date);
 			BeanUtils.copyProperties(data,copyData);
