@@ -24,7 +24,7 @@
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 
-<body style="zoom:1">
+<body style="zoom:1;overflow:-Scroll;overflow-x:hidden;overflow-y:hidden">
 	</br>
 	<div style="height:2%;">
 		<div>

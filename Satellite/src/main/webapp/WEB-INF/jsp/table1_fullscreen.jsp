@@ -28,7 +28,7 @@
 <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
 </head>
 
-<body style="zoom:1;overflow:hidden">
+<body style="zoom:1;overflow:-Scroll;overflow-x:hidden;overflow-y:hidden">
 	<div class="row" style="height:14%;">
 		<div class=" col-lg-8" style="height:100%;overflow:auto">
 			<span style="color:red">

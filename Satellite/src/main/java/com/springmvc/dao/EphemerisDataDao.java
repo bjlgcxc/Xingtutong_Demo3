@@ -71,7 +71,7 @@ public class EphemerisDataDao {
 	public void simulateEphemerisReceive(int number){
 		//1.response
 		Session session = hibernateTemplate.getSessionFactory().openSession();
-    	SQLQuery query = session.createSQLQuery("select * from beidoudata order by rand() limit ?");
+    	SQLQuery query = session.createSQLQuery("select * from ephemerisdata order by rand() limit ?");
     	query.addEntity(EphemerisData.class);
     	query.setParameter(0, number);
     	List<EphemerisData> dataList = query.list();
