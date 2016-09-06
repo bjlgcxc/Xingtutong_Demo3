@@ -243,7 +243,6 @@
 							type : "post",
 							dataType : "json",
 							success : function(msg) {
-								alert(msg.ok);
 								if (msg.ok == true) {
 									alert("消息发送成功");
 									update_table2();

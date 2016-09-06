@@ -171,12 +171,12 @@ function update_viewer(){//get data from API for viewer
 		dataType : "json",
 		url : url,
 		success : function(msg) {
-			/*viewer1.dataSources.add(Cesium.CzmlDataSource.load(msg));
-			viewer2.dataSources.add(Cesium.CzmlDataSource.load(msg)); */
+			viewer1.dataSources.add(Cesium.CzmlDataSource.load(msg));
+			viewer2.dataSources.add(Cesium.CzmlDataSource.load(msg)); 
 		},
 		error:function(){
-			/*viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
-			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); */
+			viewer1.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt"));
+			viewer2.dataSources.add(Cesium.CzmlDataSource.load("data/OrbitData.txt")); 
 		}
 	});
 }

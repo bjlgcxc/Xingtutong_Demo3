@@ -62,7 +62,7 @@
 									<input class="form-control" placeholder="UserName" name="userName" id="userName" autofocus>
 								</div>
 								<div class="form-group">
-									<input class="form-control" placeholder="Password" name="password" id="password" value="">
+									<input type="password" class="form-control" placeholder="Password" name="password" id="password" value="">
 								</div>
 								<div class="checkbox">
 									<label> 
