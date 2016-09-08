@@ -243,11 +243,11 @@
 							type : "post",
 							dataType : "json",
 							success : function(msg) {
-								if (msg.ok == true) {
+								if (msg==1) {
 									alert("消息发送成功");
 									update_table2();
 								} else {
-									alert("消息发送失败:" + msg.errorMsg);
+									alert("消息发送失败");
 								}
 							},
 							error : function() {

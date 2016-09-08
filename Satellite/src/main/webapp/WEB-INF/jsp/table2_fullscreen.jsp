@@ -89,6 +89,7 @@
 			pagination : true,
 			rownumbers : true,
 			title : "北斗短报文收发记录",
+			nowrap:false,
 			columns : [ [ {
 				field : 'time',
 				title : '时间',

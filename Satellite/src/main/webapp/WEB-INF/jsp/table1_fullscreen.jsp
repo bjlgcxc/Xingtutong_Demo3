@@ -103,6 +103,7 @@
 			rownumbers : true,
 			title : "卫星数据交换日志",
 			//sortOrder:'desc',
+			nowrap:false,
 			columns : [ [ {
 				field : 'time',
 				title : '时间',

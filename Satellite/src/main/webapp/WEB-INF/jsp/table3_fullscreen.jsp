@@ -83,6 +83,7 @@
 	        pagination: true,  
 	        rownumbers: true,     
 	        title:"卫星数据交换内容",
+	        nowrap:false,
 	        columns:[[  
 	                   {field:'satellitenumber',title:'卫星编号',align:'center',width:60},
 		               {field:'deltan',title:'平近点角速度修正值',align: 'center',width: 120,},  
