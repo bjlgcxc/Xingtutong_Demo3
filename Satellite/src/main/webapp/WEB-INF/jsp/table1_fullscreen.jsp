@@ -108,7 +108,7 @@
 				field : 'time',
 				title : '时间',
 				align : 'center',
-				width : 260,
+				width : 250,
 			}, {
 				field : 'dataFormat',
 				title : '数据格式',

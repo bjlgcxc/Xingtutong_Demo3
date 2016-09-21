@@ -1,3 +1,4 @@
+//更新表1
 function update_table1() {
 	$.ajax({
 		type : "get",
@@ -21,7 +22,9 @@ function update_table1() {
 				}
 			}
 			document.getElementById("ul1").innerHTML = str;
-			$("#ul1").bootstrapNews({
+			
+			//滚动插件
+			$("#ul1").bootstrapNews({ 
 				newsPerPage : 10,
 				autoplay : true,
 				pauseOnHover : false,
@@ -40,8 +43,8 @@ function update_table1() {
 
 }
 
-
-function update_table2(){//update table2
+//更新表2
+function update_table2(){
 	$.ajax({
 		type : "get",
 		dataType : "json",
@@ -76,8 +79,8 @@ function update_table2(){//update table2
 	});
 }
 
-
-function update_table3(element,num) {//update table3
+//更新表3，num是表3需要显示的行数
+function update_table3(element,num) {
 	$.ajax({
 		type : "get",
 		dataType : "json",
@@ -110,8 +113,8 @@ function update_table3(element,num) {//update table3
 	});
 }
 
-
-function getDateRateForNext24Hours() {//get time from now to the next 24 hours
+//获取从当前时间到未来24小时的时间
+function getDateRateForNext24Hours() {
 
 	var currentDate = new Date();
 
@@ -162,8 +165,8 @@ function getDateRateForNext24Hours() {//get time from now to the next 24 hours
 	return res;
 }
 
-
-function update_viewer(){//get data from API for viewer
+//从API获取数据，填充到viewer里面
+function update_viewer(){
 	var date = getDateRateForNext24Hours();
 	var url = "CZML/getCzmlDataSource?" + date;
 	$.ajax({
@@ -181,7 +184,7 @@ function update_viewer(){//get data from API for viewer
 	});
 }
 
-
+//格式化时间
 function GetDateTimeFormatStr(date) {
 	var seperator1 = "-";
 	var seperator2 = ":";

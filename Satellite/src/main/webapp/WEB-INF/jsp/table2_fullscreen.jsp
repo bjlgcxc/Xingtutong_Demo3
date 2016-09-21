@@ -123,7 +123,7 @@
 				field : 'content',
 				title : '内容',
 				align : 'center',
-				width : 765,
+				width : 750,
 			},
 
 			] ],

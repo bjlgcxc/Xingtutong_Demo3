@@ -85,7 +85,7 @@
 	        title:"卫星数据交换内容",
 	        nowrap:false,
 	        columns:[[  
-	                   {field:'satellitenumber',title:'卫星编号',align:'center',width:60},
+	                   {field:'satellitenumber',title:'卫星编号',align:'center',width:50},
 		               {field:'deltan',title:'平近点角速度修正值',align: 'center',width: 120,},  
 		               {field:'m0',title:'平近点角',align: 'center',width: 110, },
 		               {field:'e',title:'轨道偏心率',align: 'center',width: 120,  }  , 

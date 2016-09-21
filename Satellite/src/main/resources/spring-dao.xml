@@ -26,8 +26,7 @@
           p:password="${jdbc.password}"/>
 	
 	<!-- 3.定义sessionFactory -->
- 	<bean id="sessionFactory"
-          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+ 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="com.springmvc.entity"/>
         <property name="hibernateProperties">
